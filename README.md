@@ -1,4 +1,6 @@
 [![Build Status](https://travis-ci.org/holidayextras/make-up.svg)](https://travis-ci.org/holidayextras/make-up)
+[![Dependency status](https://david-dm.org/holidayextras/make-up/status.png)](https://david-dm.org/holidayextras/make-up#info=dependencies&view=table)
+[![Dev Dependency Status](https://david-dm.org/holidayextras/make-up/dev-status.png)](https://david-dm.org/holidayextras/make-up#info=devDependencies&view=table)
 
 ## About
 
