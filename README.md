@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/holidayextras/make-up.svg)](https://travis-ci.org/holidayextras/make-up)
+
 ## About
 
 All of the configs for all of the linters.
