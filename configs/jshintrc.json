@@ -1,0 +1,28 @@
+{
+	"boss": true,
+	"curly": true,
+	"eqeqeq": true,
+	"globals": {
+		"describe": false,
+		"it": false,
+		"before": false,
+		"beforeEach": false,
+		"after": false,
+		"afterEach": false,
+		"__BASE" : false,
+		"__LIB" : false,
+		"__SITES" : false,
+		"__CONFIG" : false,
+		"__ENV" : false,
+		"__ROUTES" : false
+	},
+	"immed": true,
+	"latedef": "nofunc",
+	"newcap": true,
+	"noarg": true,
+	"node": true,
+	"sub": true,
+	"undef": true,
+	"unused": true,
+	"trailing": true
+}
