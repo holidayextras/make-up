@@ -18,4 +18,4 @@ $ npm install make-up
 
 ## Developing
 
-Make sure nothings broken before push `$ grunt test` is good at that.
+Make sure nothings broken before pushing `$ grunt test` is good at that.
