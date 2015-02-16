@@ -7,7 +7,10 @@
     "test": "grunt test"
   },
   "author": "",
-  "license": "ISC",
+  "licenses": {
+    "type": "UNLICENSE",
+    "url": "https://github.com/holidayextras/make-up/blob/master/UNLICENSE"
+  },
   "devDependencies": {
     "grunt": "^0.4.5",
     "grunt-jsonlint": "^1.0.4",
