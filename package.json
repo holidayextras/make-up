@@ -1,6 +1,6 @@
 {
   "name": "make-up",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Handle configurations for shortbreaks",
   "main": "index.js",
   "scripts": {
