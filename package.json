@@ -7,6 +7,10 @@
     "test": "grunt test"
   },
   "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/holidayextras/make-up.git"
+  },
   "licenses": {
     "type": "UNLICENSE",
     "url": "https://github.com/holidayextras/make-up/blob/master/UNLICENSE"
