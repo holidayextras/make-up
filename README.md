@@ -15,9 +15,13 @@ $ npm install make-up
 
 ### Consume
 
-* [scss-lint](https://github.com/ahmednuaman/grunt-scss-lint) - `config: 'node_modules/make-up/configs/scss-lint.yml'`
-* [jshint](https://github.com/gruntjs/grunt-contrib-jshint) - `config: 'node_modules/make-up/configs/jshint.json'`
-* [jscs](https://github.com/jscs-dev/grunt-jscs) - `config: 'node_modules/make-up/jscsrc.json'`
+```
+var makeup = require( 'make-up' );
+```
+
+* [scss-lint](https://github.com/ahmednuaman/grunt-scss-lint) - `config: makeup( 'scss-lint.yml' )`
+* [jshint](https://github.com/gruntjs/grunt-contrib-jshint) - `config: makeup( 'jshint.json' )`
+* [jscs](https://github.com/jscs-dev/grunt-jscs) - `config: makeup( 'jscsrc.json' )`
 
 ## Developing
 
