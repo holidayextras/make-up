@@ -1,4 +1,4 @@
-var path = require( 'path' );
+"use strict";
 module.exports = function( item ) {
-	return path.resolve( __dirname, './configs/' + item );
+	return __dirname + '/configs/' + item;
 };
