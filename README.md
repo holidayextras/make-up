@@ -25,4 +25,4 @@ var makeup = require( 'make-up' );
 
 ## Developing
 
-Make sure nothings broken before pushing `$ grunt test` is good at that.
+Make sure nothings broken before pushing `$ npm test` is good at that.
