@@ -1,4 +1,6 @@
+'use strict';
 // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
+
 module.exports = function( grunt ) {
 
 	grunt.initConfig( {
