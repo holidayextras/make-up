@@ -3,7 +3,7 @@
 
 ## About
 
-All of the configs for all of the linters and some third party tools, such as a notifier for build tools using Shippable.
+All of the configs for all of the linters and some third party tools.
 
 ## Usage
 
