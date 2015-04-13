@@ -3,7 +3,7 @@
 
 ## About
 
-All of the configs for all of the linters.
+All of the configs for all of the linters and some third party tools.
 
 ## Usage
 
@@ -25,4 +25,4 @@ var makeup = require( 'make-up' );
 
 ## Developing
 
-Make sure nothings broken before pushing `$ grunt test` is good at that.
+Make sure nothings broken before pushing `$ npm test` is good at that.
