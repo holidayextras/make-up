@@ -1,9 +1,9 @@
-[![Build Status](https://api.shippable.com/projects/54edfc805ab6cc13528dcade/badge?branchName=master)](https://app.shippable.com/projects/54edfc805ab6cc13528dcade/builds/latest)
+[![Build Status](https://travis-ci.org/holidayextras/make-up.svg)](https://travis-ci.org/holidayextras/make-up)
 [![Dev Dependency Status](https://david-dm.org/holidayextras/make-up/dev-status.png)](https://david-dm.org/holidayextras/make-up#info=devDependencies&view=table)
 
 ## About
 
-All of the configs for all of the linters.
+All of the configs for all of the linters and some third party tools, such as a notifier for build tools using Shippable.
 
 ## Usage
 
