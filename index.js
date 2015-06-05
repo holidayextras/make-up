@@ -1,5 +1,6 @@
 'use strict';
 
-module.exports = function( item ) {
-	return __dirname + '/configs/' + item;
+module.exports = function( brand, item ) {
+	brand = ( brand ) ? brand : 'default';
+	return __dirname + '/configs/' + brand + '/' + item;
 };

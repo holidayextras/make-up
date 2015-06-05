@@ -15,7 +15,7 @@ describe( 'makeup', function() {
 	} );
 
 	it( 'should return a path to the requested configuration file', function() {
-		var expectedPath = path.resolve( __dirname, '../' ) + '/configs/configReader';
+		var expectedPath = path.resolve( __dirname, '../' ) + '/configs/default/configReader';
 		makeup( 'configReader' ).should.equal( expectedPath );
 	} );
 

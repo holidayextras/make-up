@@ -16,7 +16,7 @@ module.exports = function( grunt ) {
 		},
 		jshint: {
 			options: {
-				jshintrc: 'configs/jshintrc.json'
+				jshintrc: 'configs/default/jshintrc.json'
 			},
 			core: {
 				src: ['*.js']
@@ -27,7 +27,7 @@ module.exports = function( grunt ) {
 		},
 		jscs: {
 			options: {
-				config: 'configs/jscsrc.json',
+				config: 'configs/default/jscsrc.json',
 				force: 'true'
 			},
 			src: ['<%= jshint.core.src %>', '<%= jshint.test.src %>']
