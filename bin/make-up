@@ -1,0 +1,10 @@
+#!/usr/bin/env node
+
+var MakeUp = require('../index');
+
+console.log('Checking project...');
+MakeUp.check(function(error, results){
+  if(error) throw new Error(error);
+  console.log(results.formatted);
+  process.exit(results.errors);
+});
