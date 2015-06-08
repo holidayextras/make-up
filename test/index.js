@@ -42,18 +42,6 @@ describe( 'makeup', function() {
 
   });
 
-  describe('_fixGitIgnoreItem()', function(){
-
-    it('returns false if a problem pattern is given', function(){
-      makeup._fixGitIgnoreItem('!**/*.log').should.be.false();
-    });
-
-    it('returns true for a non matching pattern', function(){
-      makeup._fixGitIgnoreItem('Oh my glob!').should.be.true();
-    });
-
-  });
-
   describe('_checkFiles()', function(){
 
     it( 'is a function', function() {

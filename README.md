@@ -27,10 +27,12 @@ var makeup = require( 'make-up' );
 
 To lint all the files in a project run the following:
 
-    node_modules/.bin/make-up
+    node_modules/.bin/make-up directory1 directory2
+
+The current directory is always automatically included.
 
 This will automatically download the lint [ruleset](https://github.com/holidayextras/culture/blob/linting/.eslintrc) from Holiday Extras [culture repo](https://github.com/holidayextras/culture)
-and check any JS or JSX files found. Any pattern in the current project will be ignored.
+and check any JS or JSX files found.
 
 If any errors are found a non zero exit status will be returned equal to the number of errors.
 

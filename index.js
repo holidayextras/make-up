@@ -2,7 +2,6 @@
 
 var eslint = require('eslint');
 var glob = require('glob-all');
-var gitIgnore = require('gitignore-to-glob')();
 var temp = require('fs-temp');
 var https = require('https');
 var path = require('path');
@@ -13,10 +12,11 @@ var makeUp = {
     return path.join(__dirname, 'configs', item);
   },
 
-  check: function(callback){
-    // automatically ignore files not in version control
-    var gitFiltered = gitIgnore.filter(makeUp._fixGitIgnoreItem);
-    var globs = ['**/*.js', '**/*.jsx'].concat(gitFiltered);
+  check: function(dirs, callback){
+    var globDirs = dirs.map(function(item){
+      return item + '/**/*.js*';
+    });
+    var globs = ['./*.js'].concat(globDirs);
 
     var stream = temp.createWriteStream();
 
@@ -37,11 +37,6 @@ var makeUp = {
     https.get("https://raw.githubusercontent.com/holidayextras/culture/linting/.eslintrc", function(response){
       response.pipe(stream);
     });
-  },
-
-  //glob does not like these globs!
-  _fixGitIgnoreItem: function(item){
-      return !/^\!\*\*\/\*\.[^\.]+$/.test(item);
   },
 
   _checkFiles: function(files, callback){
