@@ -3,100 +3,117 @@
 'use strict';
 
 var chai = require( 'chai' );
-var sinonChai = require('sinon-chai');
-var dirtyChai = require('dirty-chai');
-var sinon = require('sinon');
+var sinonChai = require( 'sinon-chai' );
+var dirtyChai = require( 'dirty-chai' );
+var sinon = require( 'sinon' );
 chai.should();
-chai.use(dirtyChai);
-chai.use(sinonChai);
+chai.use( dirtyChai );
+chai.use( sinonChai );
 global.sinon = sinon;
 
 var path = require( 'path' );
 var makeup = require( '../index.js' );
-var eslint = require('eslint');
+var eslint = require( 'eslint' );
 
 describe( 'makeup', function() {
 
-  it( 'should return an object', function() {
-    makeup.should.be.an( 'object' );
-  } );
+	it( 'should return an object', function() {
 
-  describe('path()', function(){
+		makeup.should.be.an( 'object' );
+	} );
 
-    it( 'is a function', function() {
-      makeup.path.should.be.a( 'function' );
-    } );
+	describe( 'path()', function() {
 
-    it( 'returns a path to the requested configuration file', function() {
-      var expectedPath = path.resolve( __dirname, '../' ) + '/configs/configReader';
-      makeup.path( 'configReader' ).should.equal( expectedPath );
-    } );
+		it( 'is a function', function() {
 
-  });
+			makeup.path.should.be.a( 'function' );
+		} );
 
-  describe('check()', function(){
+		it( 'returns a path to the requested configuration file', function() {
 
-    it( 'is a function', function() {
-      makeup.check.should.be.a( 'function' );
-    } );
+			var expectedPath = path.resolve( __dirname, '../' ) + '/configs/configReader';
+			makeup.path( 'configReader' ).should.equal( expectedPath );
+		} );
 
-  });
+	} );
 
-  describe('_checkFiles()', function(){
+	describe( 'check()', function(){
 
-    it( 'is a function', function() {
-      makeup._checkFiles.should.be.a( 'function' );
-    } );
+		it( 'is a function', function() {
 
-    context('with no files given', function(){
+			makeup.check.should.be.a( 'function' );
+		} );
 
-      var testCallback = sinon.spy();
+	} );
 
-      before(function(){
-        makeup._checkFiles([], testCallback);
-      });
+	describe( '_checkFiles()', function() {
 
-      it('runs the callback', function(){
-        testCallback.should.have.been.called();
-      });
+		it( 'is a function', function() {
 
-      it('gives the callback an error', function(){
-        testCallback.should.have.been.calledWith(new Error('No files found'));
-      });
+			makeup._checkFiles.should.be.a( 'function' );
+		} );
 
-    });
+		context( 'with no files given', function() {
 
-    context('with files given', function(){
+			var testCallback = sinon.spy();
 
-      var testCallback = sinon.spy();
+			before( function() {
 
-      before(function(){
-        eslint.CLIEngine = function(){
-          return {
-            executeOnFiles: function(){
-              return {};
-            },
-            getFormatter: function(){
-              return function(){};
-            }
-          };
-        };
-        makeup._checkFiles(['imaginary.js'], testCallback);
-      });
+				makeup._checkFiles( [], testCallback );
+			} );
 
-      it('runs the callback', function(){
-        testCallback.should.have.been.called();
-      });
+			it( 'runs the callback', function() {
 
-      it('does not give the callback an error', function(){
-        (typeof testCallback.args[0][0]).should.equal('undefined');
-      });
+				testCallback.should.have.been.called();
+			} );
 
-      it('gives the callback a results object', function(){
-        Object.keys(testCallback.args[0][1]).should.deep.equal(['errors', 'warnings', 'formatted']);
-      });
+			it( 'gives the callback an error', function() {
 
-    });
-  });
+				testCallback.should.have.been.calledWith( new Error( 'No files found' ) );
+			} );
+
+		} );
+
+		context( 'with files given', function() {
+
+			var testCallback = sinon.spy();
+
+			before( function() {
+
+				eslint.CLIEngine = function() {
+
+					return {
+						executeOnFiles: function() {
+
+							return {};
+						},
+						getFormatter: function() {
+
+							return function() {};
+
+						}
+					};
+				};
+				makeup._checkFiles( ['imaginary.js'], testCallback );
+			} );
+
+			it( 'runs the callback', function() {
+
+				testCallback.should.have.been.called();
+			} );
+
+			it( 'does not give the callback an error', function() {
+
+				( typeof testCallback.args[0][0] ).should.equal( 'undefined' );
+			} );
+
+			it( 'gives the callback a results object', function() {
+
+				Object.keys( testCallback.args[0][1] ).should.deep.equal( ['errors', 'warnings', 'formatted'] );
+			} );
+
+		} );
+
+	} );
 
 } );

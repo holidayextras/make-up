@@ -1,14 +1,20 @@
 #!/usr/bin/env node
 
-var MakeUp = require('../index');
+'use strict';
 
-if(process.argv.length < 2){
-  console.log("Usage: make-up <dir1> [dir2] ... [dirN]");
-  process.exit(-1);
+var makeUp = require( '../index' );
+
+if( process.argv.length < 2 ){
+	console.log( 'Usage: make-up <dir1> [dir2] ... [dirN]' );
+	process.exit( -1 );
 }
 
-MakeUp.check(process.argv.slice(2), function(error, results){
-  if(error) throw new Error(error);
-  console.log(results.formatted);
-  process.exit(results.errors);
-});
+MakeUp.check( process.argv.slice( 2 ), function( error, results ) {
+
+	if( error ) {
+		throw new Error( error );
+	}
+
+	console.log( results.formatted );
+	process.exit( results.errors );
+} );
