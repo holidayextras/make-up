@@ -19,22 +19,22 @@
     "make-up": "./bin/make-up"
   },
   "devDependencies": {
-    "chai": "~2.3.0",
+    "chai": "2.3.0",
     "coveralls": "2.11.1",
-    "dirty-chai": "~1.2.1",
+    "dirty-chai": "1.2.1",
     "grunt": "0.4.5",
-    "grunt-cli": "~0.1.13",
+    "grunt-cli": "0.1.13",
     "grunt-contrib-jshint": "0.11.0",
     "grunt-jscs": "1.5.0",
     "grunt-jsonlint": "1.0.4",
     "grunt-yaml-validator": "0.7.3",
     "istanbul": "0.3.7",
     "mocha": "1.20.1",
-    "sinon-chai": "~2.8.0"
+    "sinon-chai": "2.8.0"
   },
   "dependencies": {
-    "eslint": "~0.22.1",
-    "fs-temp": "~0.1.2",
-    "glob-all": "~3.0.1"
+    "eslint": "0.22.1",
+    "fs-temp": "0.1.2",
+    "glob-all": "3.0.1"
   }
 }
