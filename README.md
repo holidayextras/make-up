@@ -19,9 +19,21 @@ $ npm install make-up
 var makeup = require( 'make-up' );
 ```
 
-* [scss-lint](https://github.com/ahmednuaman/grunt-scss-lint) - `config: makeup( 'scss-lint.yml' )`
-* [jshint](https://github.com/gruntjs/grunt-contrib-jshint) - `config: makeup( 'jshint.json' )`
-* [jscs](https://github.com/jscs-dev/grunt-jscs) - `config: makeup( 'jshintrc.json' )`
+* [scss-lint](https://github.com/ahmednuaman/grunt-scss-lint) - `config: makeup.path( 'scss-lint.yml' )`
+
+
+### Linting
+
+To lint all the files in a project run the following:
+
+    node_modules/.bin/make-up directory1 directory2
+
+The current directory is always automatically included.
+
+This will automatically download the lint [ruleset](https://github.com/holidayextras/culture/blob/linting/.eslintrc) from Holiday Extras [culture repo](https://github.com/holidayextras/culture)
+and check any JS or JSX files found.
+
+If any errors are found a non zero exit status will be returned equal to the number of errors.
 
 ## Developing
 
