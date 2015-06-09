@@ -14,21 +14,21 @@ var makeUp = {
     return path.join(__dirname, 'configs', item);
   },
 
-  check: function(dirs, callback){
-    var globDirs = dirs.map(function(item){
+  check: function(dirs, callback) {
+    var globDirs = dirs.map(function(item) {
       return item + '/**/*.js*';
     });
     var globs = ['./*.js'].concat(globDirs);
 
     var stream = temp.createWriteStream();
 
-    stream.on('path', function(name){
+    stream.on('path', function(name) {
       makeUp.tempConfig = name;
     });
 
     stream.on('finish', function() {
-      stream.close(function(){
-        glob(globs, function(error, files){
+      stream.close(function() {
+        glob(globs, function(error, files) {
           if(error) callback(error);
           console.log('Files: ', files);
           makeUp._checkFiles(files, callback);
@@ -36,12 +36,12 @@ var makeUp = {
       });
     });
 
-    https.get(RULESETURL, function(response){
+    https.get(RULESETURL, function(response) {
       response.pipe(stream);
     });
   },
 
-  _checkFiles: function(files, callback){
+  _checkFiles: function(files, callback) {
 
     if(!files || !files.length) callback(new Error('No files found'));
     var options = {

@@ -19,7 +19,7 @@ describe('makeup', function() {
     makeup.should.be.an('object');
   });
 
-  describe('path()', function(){
+  describe('path()', function() {
 
     it('is a function', function() {
       makeup.path.should.be.a('function');
@@ -32,7 +32,7 @@ describe('makeup', function() {
 
   });
 
-  describe('check()', function(){
+  describe('check()', function() {
 
     it('is a function', function() {
       makeup.check.should.be.a('function');
@@ -40,57 +40,57 @@ describe('makeup', function() {
 
   });
 
-  describe('_checkFiles()', function(){
+  describe('_checkFiles()', function() {
 
     it('is a function', function() {
       makeup._checkFiles.should.be.a('function');
     });
 
-    context('with no files given', function(){
+    context('with no files given', function() {
 
       var testCallback = sinon.spy();
 
-      before(function(){
+      before(function() {
         makeup._checkFiles([], testCallback);
       });
 
-      it('runs the callback', function(){
+      it('runs the callback', function() {
         testCallback.should.have.been.called();
       });
 
-      it('gives the callback an error', function(){
+      it('gives the callback an error', function() {
         testCallback.should.have.been.calledWith(new Error('No files found'));
       });
 
     });
 
-    context('with files given', function(){
+    context('with files given', function() {
 
       var testCallback = sinon.spy();
 
-      before(function(){
-        eslint.CLIEngine = function(){
+      before(function() {
+        eslint.CLIEngine = function() {
           return {
-            executeOnFiles: function(){
+            executeOnFiles: function() {
               return {};
             },
-            getFormatter: function(){
-              return function(){};
+            getFormatter: function() {
+              return function() {};
             }
           };
         };
         makeup._checkFiles(['imaginary.js'], testCallback);
       });
 
-      it('runs the callback', function(){
+      it('runs the callback', function() {
         testCallback.should.have.been.called();
       });
 
-      it('does not give the callback an error', function(){
+      it('does not give the callback an error', function() {
         (typeof testCallback.args[0][0]).should.equal('undefined');
       });
 
-      it('gives the callback a results object', function(){
+      it('gives the callback a results object', function() {
         Object.keys(testCallback.args[0][1]).should.deep.equal(['errors', 'warnings', 'formatted']);
       });
 
