@@ -6,6 +6,8 @@ var temp = require('fs-temp');
 var https = require('https');
 var path = require('path');
 
+var RULESETURL = 'https://raw.githubusercontent.com/holidayextras/culture/linting/.eslintrc';
+
 var makeUp = {
 
   path: function( item ) {
@@ -34,7 +36,7 @@ var makeUp = {
       });
     });
 
-    https.get("https://raw.githubusercontent.com/holidayextras/culture/linting/.eslintrc", function(response){
+    https.get(RULESETURL, function(response){
       response.pipe(stream);
     });
   },
