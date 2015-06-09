@@ -20,8 +20,7 @@ var makeup = require( 'make-up' );
 ```
 
 * [scss-lint](https://github.com/ahmednuaman/grunt-scss-lint) - `config: makeup.path( 'scss-lint.yml' )`
-* [jshint](https://github.com/gruntjs/grunt-contrib-jshint) - `config: makeup.path( 'jshint.json' )`
-* [jscs](https://github.com/jscs-dev/grunt-jscs) - `config: makeup.path( 'jshintrc.json' )`
+
 
 ### Linting
 
