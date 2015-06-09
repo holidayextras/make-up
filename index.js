@@ -10,7 +10,7 @@ var RULESETURL = 'https://raw.githubusercontent.com/holidayextras/culture/lintin
 
 var makeUp = {
 
-  path: function( item ) {
+  path: function(item) {
     return path.join(__dirname, 'configs', item);
   },
 

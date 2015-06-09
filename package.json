@@ -4,8 +4,7 @@
   "description": "Handle configurations for Holiday Extras",
   "main": "index.js",
   "scripts": {
-    "test": "node_modules/.bin/istanbul cover node_modules/.bin/_mocha -- --recursive -R spec",
-    "lint": "bin/make-up test"
+    "test": "bin/make-up test && node_modules/.bin/istanbul cover node_modules/.bin/_mocha -- --recursive -R spec"
   },
   "author": "",
   "repository": {

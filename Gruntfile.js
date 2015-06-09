@@ -1,9 +1,8 @@
 'use strict';
-// jscs:disable requireCamelCaseOrUpperCaseIdentifiers
 
-module.exports = function( grunt ) {
+module.exports = function(grunt) {
 
-	grunt.initConfig( {
+	grunt.initConfig({
 		yaml_validator: {
 			lint_everything: {
 				src: [ 'configs/*.yml' ]
@@ -14,9 +13,9 @@ module.exports = function( grunt ) {
 				src: [ 'configs/*.json' ]
 			}
 		}
-	} );
+	});
 
-	grunt.loadNpmTasks( 'grunt-jsonlint' );
-	grunt.loadNpmTasks( 'grunt-yaml-validator' );
+	grunt.loadNpmTasks('grunt-jsonlint');
+	grunt.loadNpmTasks('grunt-yaml-validator');
 
 };
