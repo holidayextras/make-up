@@ -36,17 +36,20 @@ var makeUp = {
       });
     });
 
-    https.get(RULESETURL, function(response) {
+    var request = https.get(RULESETURL, function(response) {
       if(response.statusCode !== 200) {
-        return callback('Problem with rule download');
+        return callback(new Error('Problem with rule download'));
       }
       response.pipe(stream);
+    });
+    request.on('error', function(err) {
+      callback(err);
     });
   },
 
   _checkFiles: function(files, callback) {
 
-    if(!files || !files.length) callback('No files found');
+    if(!files || !files.length) callback(new Error('No files found'));
     var options = {
       configFile: makeUp.tempConfig,
       useEslintrc: false

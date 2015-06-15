@@ -4,7 +4,7 @@
   "description": "Handle configurations for Holiday Extras",
   "main": "index.js",
   "scripts": {
-    "test": "bin/make-up test && node_modules/.bin/istanbul cover node_modules/.bin/_mocha -- --recursive -R spec"
+    "test": "bin/make-up.js test && node_modules/.bin/istanbul cover node_modules/.bin/_mocha -- --recursive -R spec"
   },
   "author": "",
   "repository": {
@@ -16,7 +16,7 @@
     "url": "https://github.com/holidayextras/make-up/blob/master/UNLICENSE"
   },
   "bin": {
-    "make-up": "./bin/make-up"
+    "make-up": "./bin/make-up.js"
   },
   "devDependencies": {
     "chai": "2.3.0",
