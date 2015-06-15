@@ -60,7 +60,6 @@ var makeUp = {
 
   _fileIsNewer: function(since, file) {
     var stat = fs.statSync(file);
-    console.log(stat.mtime);
     var seconds = new Date(stat.mtime).getTime();
     return seconds > since;
   },
