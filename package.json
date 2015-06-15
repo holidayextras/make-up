@@ -1,6 +1,6 @@
 {
   "name": "make-up",
-  "version": "2.0.1",
+  "version": "3.0.0",
   "description": "Handle configurations for Holiday Extras",
   "main": "index.js",
   "scripts": {
@@ -33,6 +33,7 @@
   "dependencies": {
     "eslint": "0.22.1",
     "fs-temp": "0.1.2",
-    "glob-all": "3.0.1"
+    "glob-all": "3.0.1",
+    "minimist": "^1.1.1"
   }
 }
