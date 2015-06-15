@@ -6,7 +6,7 @@ var temp = require('fs-temp');
 var https = require('https');
 var path = require('path');
 
-var RULESETURL = 'https://raw.githubusercontent.com/holidayextras/culture/linting/.eslintrc';
+var RULESETURL = 'https://raw.githubusercontent.com/holidayextras/culture/master/.eslintrc';
 
 var makeUp = {
 
@@ -37,6 +37,9 @@ var makeUp = {
     });
 
     https.get(RULESETURL, function(response) {
+      if(response.statusCode !== 200) {
+        return callback(new Error('Problem with rule download'));
+      }
       response.pipe(stream);
     });
   },
