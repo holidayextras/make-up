@@ -5,6 +5,7 @@ var glob = require('glob-all');
 var temp = require('fs-temp');
 var https = require('https');
 var path = require('path');
+var fs = require('fs');
 
 var RULESETURL = 'https://raw.githubusercontent.com/holidayextras/culture/master/.eslintrc';
 
@@ -14,25 +15,19 @@ var makeUp = {
     return path.join(__dirname, 'configs', item);
   },
 
-  check: function(dirs, callback) {
-    var globDirs = dirs.map(function(item) {
-      return item + '/**/*.js*';
-    });
+  check: function(options, callback) {
+    var globDirs = options.dirs.map(makeUp._directoryToGlob);
     var globs = ['./*.js'].concat(globDirs);
 
     var stream = temp.createWriteStream();
 
     stream.on('path', function(name) {
-      makeUp.tempConfig = name;
+      makeUp._tempConfig = name;
     });
 
     stream.on('finish', function() {
-      stream.close(function() {
-        glob(globs, function(error, files) {
-          if(error) callback(error);
-          console.log('Files: ', files);
-          makeUp._checkFiles(files, callback);
-        });
+      this.close(function() {
+        glob(globs, makeUp._processGlobs.bind(makeUp, options, callback));
       });
     });
 
@@ -47,11 +42,32 @@ var makeUp = {
     });
   },
 
-  _checkFiles: function(files, callback) {
+  _directoryToGlob: function(item) {
+    return item + '/**/*.js*';
+  },
 
+  _processGlobs: function(options, callback, error, files) {
+    if(error) return callback(error);
+
+    if(options.since) {
+      var sinceSeconds = new Date(options.since).getTime();
+      files = files.filter(this._fileIsNewer.bind(undefined, sinceSeconds));
+    }
+
+    console.log('Files: ', files);
+    this._checkFiles(files, callback);
+  },
+
+  _fileIsNewer: function(since, file) {
+    var stat = fs.statSync(file);
+    var seconds = new Date(stat.mtime).getTime();
+    return seconds > since;
+  },
+
+  _checkFiles: function(files, callback) {
     if(!files || !files.length) callback(new Error('No files found'));
     var options = {
-      configFile: makeUp.tempConfig,
+      configFile: this._tempConfig,
       useEslintrc: false
     };
 
