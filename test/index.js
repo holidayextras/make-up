@@ -10,11 +10,11 @@ chai.use(sinonChai);
 global.sinon = sinon;
 
 var path = require('path');
-var makeup = require('../index.js');
+var makeup = require('../index');
 var eslint = require('eslint');
 var fs = require('fs');
 
-describe('makeup', function() {
+describe('MakeUp', function() {
 
   it('should return an object', function() {
     makeup.should.be.an('object');
