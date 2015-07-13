@@ -32,7 +32,7 @@ var makeUp = {
     });
 
     var request = https.get(RULESETURL, function(response) {
-      if(response.statusCode !== 200) {
+      if (response.statusCode !== 200) {
         return callback(new Error('Problem with rule download'));
       }
       response.pipe(stream);
@@ -47,9 +47,9 @@ var makeUp = {
   },
 
   _processGlobs: function(options, callback, error, files) {
-    if(error) return callback(error);
+    if (error) return callback(error);
 
-    if(options.since) {
+    if (options.since) {
       var sinceSeconds = new Date(options.since).getTime();
       files = files.filter(this._fileIsNewer.bind(undefined, sinceSeconds));
     }
@@ -65,7 +65,7 @@ var makeUp = {
   },
 
   _checkFiles: function(files, callback) {
-    if(!files || !files.length) callback(new Error('No files found'));
+    if (!files || !files.length) callback(new Error('No files found'));
     var options = {
       configFile: this._tempConfig,
       useEslintrc: false
