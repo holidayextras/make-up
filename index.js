@@ -43,7 +43,7 @@ var makeUp = {
   },
 
   _directoryToGlob: function(item) {
-    return item + '/**/*.js*';
+    return item + '/**/*.js';
   },
 
   _processGlobs: function(options, callback, error, files) {
