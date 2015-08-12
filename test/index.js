@@ -13,11 +13,28 @@ var path = require('path');
 var makeup = require('../index.js');
 var eslint = require('eslint');
 var fs = require('fs');
+var minimatch = require('minimatch');
 
 describe('makeup', function() {
 
   it('should return an object', function() {
     makeup.should.be.an('object');
+  });
+
+  describe('GLOBEXTENSION', function() {
+
+    it('matches js files', function() {
+      minimatch('file.js', makeup.GLOBEXTENSION).should.be.true();
+    });
+
+    it('matches jsx files', function() {
+      minimatch('file.jsx', makeup.GLOBEXTENSION).should.be.true();
+    });
+
+    it('does not match JSON files', function() {
+      minimatch('file.json', makeup.GLOBEXTENSION).should.be.false();
+    });
+
   });
 
   describe('path()', function() {
@@ -101,7 +118,7 @@ describe('makeup', function() {
   describe('_directoryToGlob()', function() {
 
     it('returns a glob with file extension', function() {
-      makeup._directoryToGlob('unknownDir').should.have.string('/**/*.js*');
+      makeup._directoryToGlob('unknownDir').should.have.string('/**/*.?(js|jsx)');
     });
 
   });
