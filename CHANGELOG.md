@@ -1,3 +1,4 @@
+* **3.0.2** - Stop linting json files.
 * **3.0.1** - Freezing version of linting ruleset used.
 * **3.0.0** - Changed check interface to support multiple options, filtering files by date now supported.
 * **2.0.1** - Using linting rules from the master branch of our [culture](https://github.com/holidayextras/culture) repo.

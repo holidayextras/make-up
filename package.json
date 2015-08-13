@@ -1,6 +1,6 @@
 {
   "name": "make-up",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "Handle configurations for Holiday Extras",
   "main": "index.js",
   "scripts": {
@@ -27,6 +27,7 @@
     "grunt-jsonlint": "1.0.4",
     "grunt-yaml-validator": "0.7.3",
     "istanbul": "0.3.7",
+    "minimatch": "2.0.10",
     "mocha": "1.20.1",
     "sinon-chai": "2.8.0"
   },
