@@ -1,3 +1,4 @@
+* **3.0.3** - Linting ruleset updated to explicitly specify all rules in use.
 * **3.0.2** - Stop linting json files.
 * **3.0.1** - Freezing version of linting ruleset used.
 * **3.0.0** - Changed check interface to support multiple options, filtering files by date now supported.

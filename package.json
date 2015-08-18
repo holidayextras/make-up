@@ -1,6 +1,6 @@
 {
   "name": "make-up",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "description": "Handle configurations for Holiday Extras",
   "main": "index.js",
   "scripts": {
