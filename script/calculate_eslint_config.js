@@ -11,4 +11,4 @@ var cli = new CLIEngine({
   useEslintrc: false
 });
 
-console.log(cli.getConfigForFile('index.js'));
+console.log(JSON.stringify(cli.getConfigForFile('index.js'), null, 2));
