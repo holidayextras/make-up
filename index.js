@@ -50,7 +50,7 @@ makeUp._directoryToGlob = function(item) {
 
 makeUp._processGlobs = function(options, callback, error, files) {
   if (error) return callback(error);
-  if (!files || !files.length) callback(new Error('No files found'));
+  if (!files || !files.length) return callback(new Error('No files found'));
 
   if (options.since) {
     var sinceSeconds = new Date(options.since).getTime();
