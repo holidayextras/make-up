@@ -50,13 +50,13 @@ makeUp._directoryToGlob = function(item) {
 
 makeUp._processGlobs = function(options, callback, error, files) {
   if (error) return callback(error);
+  if (!files || !files.length) return callback(new Error('No files found'));
 
   if (options.since) {
     var sinceSeconds = new Date(options.since).getTime();
     files = files.filter(this._fileIsNewer.bind(undefined, sinceSeconds));
   }
 
-  console.log('Files: ', files);
   this._checkFiles(files, callback);
 };
 
@@ -67,7 +67,17 @@ makeUp._fileIsNewer = function(since, file) {
 };
 
 makeUp._checkFiles = function(files, callback) {
-  if (!files || !files.length) callback(new Error('No files found'));
+  if (!files.length) {
+    console.log('No changes files since provided date. All ok.');
+    return callback(undefined, {
+      errors: 0,
+      warnings: 0,
+      formatted: ''
+    });
+  }
+
+  console.log('Checking files: ', files);
+
   var options = {
     configFile: this._tempConfig,
     useEslintrc: false

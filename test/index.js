@@ -76,8 +76,8 @@ describe('makeup', function() {
         testCallback.should.have.been.called();
       });
 
-      it('gives the callback an error', function() {
-        testCallback.should.have.been.calledWith(new Error('No files found'));
+      it('calls back with no errors', function() {
+        testCallback.should.have.been.calledWith(undefined, { errors: 0, formatted: '', warnings: 0 });
       });
 
     });
@@ -139,6 +139,33 @@ describe('makeup', function() {
 
       it('gives the error to the callback', function() {
         testCallback.args[0][0].should.equal('test error');
+      });
+
+    });
+
+    context('with no files', function() {
+
+      var files;
+      var callback;
+      var _checkFiles;
+
+      before(function() {
+        files = [];
+        callback = sinon.spy();
+        _checkFiles = sinon.stub(makeup, '_checkFiles');
+        makeup._processGlobs({}, callback, undefined, files);
+      });
+
+      after(function() {
+        _checkFiles.restore();
+      });
+
+      it('calls back with an error', function() {
+        callback.should.have.been.calledWith(sinon.match.instanceOf(Error));
+      });
+
+      it('does not check the files', function() {
+        _checkFiles.should.not.have.been.called();
       });
 
     });
