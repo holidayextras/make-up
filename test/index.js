@@ -12,7 +12,7 @@ global.sinon = sinon;
 var path = require('path');
 var makeup = require('../index.js');
 var eslint = require('eslint');
-var fs = require('fs');
+var fse = require('fs-extra');
 var minimatch = require('minimatch');
 
 describe('makeup', function() {
@@ -54,6 +54,49 @@ describe('makeup', function() {
 
     it('is a function', function() {
       makeup.check.should.be.a('function');
+    });
+
+    describe('Rule download', function() {
+
+      var downloadStub;
+      var existsStub;
+
+      beforeEach(function() {
+        downloadStub = sinon.stub(makeup, '_downloadConfig');
+        existsStub = sinon.stub(fse, 'existsSync');
+      });
+
+      afterEach(function() {
+        downloadStub.restore();
+        existsStub.restore();
+      });
+
+      context('without any existing rules', function() {
+
+        beforeEach(function() {
+          existsStub.returns(false);
+          makeup.check( { dirs: [] }, function() {});
+        });
+
+        it('downloads new rules', function() {
+          downloadStub.should.have.been.called();
+        });
+
+      });
+
+      context('with existing rules', function() {
+
+        beforeEach(function() {
+          existsStub.returns(true);
+          makeup.check( { dirs: [] }, function() {});
+        });
+
+        it('does not download any rules', function() {
+          downloadStub.should.not.have.been.called();
+        });
+
+      });
+
     });
 
   });
@@ -211,7 +254,7 @@ describe('makeup', function() {
     var since;
 
     before(function() {
-      stub = sinon.stub(fs, 'statSync');
+      stub = sinon.stub(fse, 'statSync');
       stub.returns({
         mtime: 'Mon, 10 Oct 2011 23:24:11 GMT'
       });

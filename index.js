@@ -5,31 +5,51 @@ var glob = require('glob-all');
 var temp = require('fs-temp');
 var https = require('https');
 var path = require('path');
-var fs = require('fs');
+var fse = require('fs-extra');
 
 var RULESETURL = 'https://raw.githubusercontent.com/holidayextras/culture/e9a5285fec17432545085fc0d10110d05782a542/.eslintrc';
 
 var makeUp = module.exports = {};
 
 makeUp.GLOBEXTENSION = '*.?(js|jsx)';
+makeUp.ESLINTRC = '.eslintrc';
 
 makeUp.path = function(item) {
   return path.join(__dirname, 'configs', item);
 };
 
 makeUp.check = function(options, callback) {
+  if (!Array.isArray(options.dirs)) return callback(new Error('directory list must be an array'));
+
   var globDirs = options.dirs.map(makeUp._directoryToGlob);
   var globs = ['./' + makeUp.GLOBEXTENSION].concat(globDirs);
 
+  // If rules are already downloaded, just run with what we have
+  if (fse.existsSync(makeUp.ESLINTRC)) {
+    return glob(globs, makeUp._processGlobs.bind(makeUp, options, callback));
+  }
+
+  makeUp._downloadConfig(function(err) {
+    if (err) return callback(err);
+    glob(globs, makeUp._processGlobs.bind(makeUp, options, callback));
+  });
+};
+
+makeUp._downloadConfig = function(callback) {
+  console.log('Downloading ruleset...');
   var stream = temp.createWriteStream();
+  var tempPath;
 
   stream.on('path', function(name) {
-    makeUp._tempConfig = name;
+    tempPath = name;
   });
 
   stream.on('finish', function() {
     this.close(function() {
-      glob(globs, makeUp._processGlobs.bind(makeUp, options, callback));
+      // move the downloaded config into the project
+      fse.copy(tempPath, makeUp.ESLINTRC, function(err) {
+        callback(err);
+      });
     });
   });
 
@@ -42,6 +62,7 @@ makeUp.check = function(options, callback) {
   request.on('error', function(err) {
     callback(err);
   });
+
 };
 
 makeUp._directoryToGlob = function(item) {
@@ -61,7 +82,7 @@ makeUp._processGlobs = function(options, callback, error, files) {
 };
 
 makeUp._fileIsNewer = function(since, file) {
-  var stat = fs.statSync(file);
+  var stat = fse.statSync(file);
   var seconds = new Date(stat.mtime).getTime();
   return seconds > since;
 };
@@ -79,7 +100,7 @@ makeUp._checkFiles = function(files, callback) {
   console.log('Checking files: ', files);
 
   var options = {
-    configFile: this._tempConfig,
+    configFile: makeUp.ESLINTRC,
     useEslintrc: false
   };
 
