@@ -9,14 +9,22 @@ All of the configs for all of the linters and some third party tools.
 
 ### Install
 
-```
-$ npm install make-up
-```
+    npm install make-up --save-dev
+
+Any existing eslint ruleset will be removed from the current directory upon installation.
 
 ### Consume
 
-```
-var makeup = require( 'make-up' );
+This library's functions can be run programmatically:
+
+```javascript
+var makeup = require('make-up');
+var options = {
+  dirs: []
+};
+makeup.check(options, function(error, results) {
+  ...
+});
 ```
 
 * [scss-lint](https://github.com/ahmednuaman/grunt-scss-lint) - `config: makeup.path( 'scss-lint.yml' )`

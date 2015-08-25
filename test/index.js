@@ -56,6 +56,63 @@ describe('makeup', function() {
       makeup.check.should.be.a('function');
     });
 
+    context('without an array of directories given', function() {
+
+      var testCallback = sinon.spy();
+
+      beforeEach(function() {
+        makeup.check({}, testCallback);
+      });
+
+      it('returns an error', function() {
+        testCallback.should.have.been.calledWith(Error('Directory list must be an array'));
+      });
+
+    });
+
+    describe('Rule download', function() {
+
+      var downloadStub;
+      var existsStub;
+
+      beforeEach(function() {
+        downloadStub = sinon.stub(makeup, '_downloadConfig');
+        existsStub = sinon.stub(fs, 'existsSync');
+      });
+
+      afterEach(function() {
+        downloadStub.restore();
+        existsStub.restore();
+      });
+
+      context('without any existing rules', function() {
+
+        beforeEach(function() {
+          existsStub.returns(false);
+          makeup.check( { dirs: [] }, function() {});
+        });
+
+        it('downloads new rules', function() {
+          downloadStub.should.have.been.called();
+        });
+
+      });
+
+      context('with existing rules', function() {
+
+        beforeEach(function() {
+          existsStub.returns(true);
+          makeup.check( { dirs: [] }, function() {});
+        });
+
+        it('does not download any rules', function() {
+          downloadStub.should.not.have.been.called();
+        });
+
+      });
+
+    });
+
   });
 
   describe('_checkFiles()', function() {
