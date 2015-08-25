@@ -12,7 +12,7 @@ global.sinon = sinon;
 var path = require('path');
 var makeup = require('../index.js');
 var eslint = require('eslint');
-var fse = require('fs-extra');
+var fs = require('fs');
 var minimatch = require('minimatch');
 
 describe('makeup', function() {
@@ -77,7 +77,7 @@ describe('makeup', function() {
 
       beforeEach(function() {
         downloadStub = sinon.stub(makeup, '_downloadConfig');
-        existsStub = sinon.stub(fse, 'existsSync');
+        existsStub = sinon.stub(fs, 'existsSync');
       });
 
       afterEach(function() {
@@ -268,7 +268,7 @@ describe('makeup', function() {
     var since;
 
     before(function() {
-      stub = sinon.stub(fse, 'statSync');
+      stub = sinon.stub(fs, 'statSync');
       stub.returns({
         mtime: 'Mon, 10 Oct 2011 23:24:11 GMT'
       });

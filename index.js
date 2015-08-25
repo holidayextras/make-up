@@ -5,7 +5,7 @@ var glob = require('glob-all');
 var temp = require('fs-temp');
 var https = require('https');
 var path = require('path');
-var fse = require('fs-extra');
+var fs = require('fs');
 
 var RULESETURL = 'https://raw.githubusercontent.com/holidayextras/culture/e9a5285fec17432545085fc0d10110d05782a542/.eslintrc';
 
@@ -25,7 +25,7 @@ makeUp.check = function(options, callback) {
   var globs = ['./' + makeUp.GLOBEXTENSION].concat(globDirs);
 
   // If rules are already downloaded, just run with what we have
-  if (fse.existsSync(makeUp.ESLINTRC)) {
+  if (fs.existsSync(makeUp.ESLINTRC)) {
     return glob(globs, makeUp._processGlobs.bind(makeUp, options, callback));
   }
 
@@ -47,7 +47,7 @@ makeUp._downloadConfig = function(callback) {
   stream.on('finish', function() {
     this.close(function() {
       // move the downloaded config into the project
-      fse.copy(tempPath, makeUp.ESLINTRC, function(err) {
+      fs.rename(tempPath, makeUp.ESLINTRC, function(err) {
         callback(err);
       });
     });
@@ -82,7 +82,7 @@ makeUp._processGlobs = function(options, callback, error, files) {
 };
 
 makeUp._fileIsNewer = function(since, file) {
-  var stat = fse.statSync(file);
+  var stat = fs.statSync(file);
   var seconds = new Date(stat.mtime).getTime();
   return seconds > since;
 };
