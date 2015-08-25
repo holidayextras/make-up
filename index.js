@@ -19,7 +19,7 @@ makeUp.path = function(item) {
 };
 
 makeUp.check = function(options, callback) {
-  if (!Array.isArray(options.dirs)) return callback(new Error('directory list must be an array'));
+  if (!Array.isArray(options.dirs)) return callback(new Error('Directory list must be an array'));
 
   var globDirs = options.dirs.map(makeUp._directoryToGlob);
   var globs = ['./' + makeUp.GLOBEXTENSION].concat(globDirs);

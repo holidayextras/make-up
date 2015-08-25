@@ -56,6 +56,20 @@ describe('makeup', function() {
       makeup.check.should.be.a('function');
     });
 
+    context('without an array of directories given', function() {
+
+      var testCallback = sinon.spy();
+
+      beforeEach(function() {
+        makeup.check({}, testCallback);
+      });
+
+      it('returns an error', function() {
+        testCallback.should.have.been.calledWith(Error('Directory list must be an array'));
+      });
+
+    });
+
     describe('Rule download', function() {
 
       var downloadStub;
