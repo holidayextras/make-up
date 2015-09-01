@@ -7,6 +7,9 @@ var https = require('https');
 var path = require('path');
 var fs = require('fs');
 
+var SinceFilter = require('./lib/SinceFilter');
+var GithubSinceFilter = require('./lib/GithubSinceFilter');
+
 var RULESETURL = 'https://raw.githubusercontent.com/holidayextras/culture/e9a5285fec17432545085fc0d10110d05782a542/.eslintrc';
 
 var makeUp = module.exports = {};
@@ -73,18 +76,18 @@ makeUp._processGlobs = function(options, callback, error, files) {
   if (error) return callback(error);
   if (!files || !files.length) return callback(new Error('No files found'));
 
-  if (options.since) {
-    var sinceSeconds = new Date(options.since).getTime();
-    files = files.filter(this._fileIsNewer.bind(undefined, sinceSeconds));
+  if (options.since) {  // Filter files by last modified date
+    SinceFilter.process(options.since, files, function(err, recent) {
+      if (err) return callback(err);
+      makeUp._checkFiles(recent, callback);
+    });
+  } else if (options.githubSince) { // Filter files by github history
+    GithubSinceFilter.process(options.githubSince, files, function(err, recent) {
+      if (err) return callback(err);
+      makeUp._checkFiles(recent, callback);
+    });
   }
 
-  this._checkFiles(files, callback);
-};
-
-makeUp._fileIsNewer = function(since, file) {
-  var stat = fs.statSync(file);
-  var seconds = new Date(stat.mtime).getTime();
-  return seconds > since;
 };
 
 makeUp._checkFiles = function(files, callback) {
