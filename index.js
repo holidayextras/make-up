@@ -8,7 +8,7 @@ var path = require('path');
 var fs = require('fs');
 
 var SinceFilter = require('./lib/SinceFilter');
-var GithubSinceFilter = require('./lib/GithubSinceFilter');
+var GitSinceFilter = require('./lib/GitSinceFilter');
 
 var RULESETURL = 'https://raw.githubusercontent.com/holidayextras/culture/e9a5285fec17432545085fc0d10110d05782a542/.eslintrc';
 
@@ -81,8 +81,8 @@ makeUp._processGlobs = function(options, callback, error, files) {
       if (err) return callback(err);
       makeUp._checkFiles(recent, callback);
     });
-  } else if (options.githubSince) { // Filter files by github history
-    GithubSinceFilter.process(options.githubSince, files, function(err, recent) {
+  } else if (options.gitSince) { // Filter files by git history
+    GitSinceFilter.process(options.gitSince, files, function(err, recent) {
       if (err) return callback(err);
       makeUp._checkFiles(recent, callback);
     });

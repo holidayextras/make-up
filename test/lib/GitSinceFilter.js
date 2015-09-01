@@ -9,16 +9,16 @@ chai.use(dirtyChai);
 chai.use(sinonChai);
 global.sinon = sinon;
 
-var GithubSinceFilter = require('../../lib/GithubSinceFilter');
+var GitSinceFilter = require('../../lib/GitSinceFilter');
 
-describe('GithubSinceFilter', function() {
+describe('GitSinceFilter', function() {
 
   describe('_fileIsNewer()', function() {
 
     context('when the file is found in the github list', function() {
 
       it('returns true', function() {
-        GithubSinceFilter._fileIsNewer(['imaginary.js'], 'imaginary.js').should.be.true();
+        GitSinceFilter._fileIsNewer(['imaginary.js'], 'imaginary.js').should.be.true();
       });
 
     });
@@ -26,7 +26,7 @@ describe('GithubSinceFilter', function() {
     context('when the file is not found in the github list', function() {
 
       it('returns false', function() {
-        GithubSinceFilter._fileIsNewer(['real.js'], 'imaginary.js').should.be.false();
+        GitSinceFilter._fileIsNewer(['real.js'], 'imaginary.js').should.be.false();
       });
 
     });
@@ -38,7 +38,7 @@ describe('GithubSinceFilter', function() {
     context('with a root level file', function() {
 
       it('adds slashes', function() {
-        GithubSinceFilter._addRootLevelSlashes('imaginary.js').should.equal('./imaginary.js');
+        GitSinceFilter._addRootLevelSlashes('imaginary.js').should.equal('./imaginary.js');
       });
 
     });
@@ -46,7 +46,7 @@ describe('GithubSinceFilter', function() {
     context('with a nested file', function() {
 
       it('does not change it', function() {
-        GithubSinceFilter._addRootLevelSlashes('friend/imaginary.js').should.equal('friend/imaginary.js');
+        GitSinceFilter._addRootLevelSlashes('friend/imaginary.js').should.equal('friend/imaginary.js');
       });
 
     });

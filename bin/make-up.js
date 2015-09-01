@@ -9,7 +9,7 @@ var argv = require('minimist')(process.argv.slice(2));
 var options = {
   dirs: argv._,
   since: argv.s,
-  githubSince: argv.g
+  gitSince: argv.g
 };
 MakeUp.check(options, function(error, results) {
   if (error) throw error;
