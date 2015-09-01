@@ -86,6 +86,8 @@ makeUp._processGlobs = function(options, callback, error, files) {
       if (err) return callback(err);
       makeUp._checkFiles(recent, callback);
     });
+  } else {  // No filtering specified
+    makeUp._checkFiles(files, callback);
   }
 
 };
