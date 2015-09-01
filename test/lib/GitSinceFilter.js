@@ -53,4 +53,16 @@ describe('GitSinceFilter', function() {
 
   });
 
+  describe('_formatDate()', function() {
+
+    context('with a date string format only Date() knows about', function() {
+
+      it('formats the string in an ISO format', function() {
+        GitSinceFilter._formatDate('Tue Jun 09 2015 14:49:57 GMT+0100 (BST)').should.equal('2015-06-09T14:49:57+01:00');
+      });
+
+    });
+
+  });
+
 });
