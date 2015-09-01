@@ -1,3 +1,4 @@
+* **5.1.0** - Filtering files by a git history date now supported.
 * **5.0.0** - Rules are now downloaded into the current directory if not already present.
 * **4.0.0** - Updated behaviour around the date argument. Having 0 files changed since the provided date now won't throw an error, and won't yield a non-zero exit code.
 * **3.0.3** - Linting ruleset updated to explicitly specify all rules in use.
