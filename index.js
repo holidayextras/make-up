@@ -7,7 +7,7 @@ var https = require('https');
 var path = require('path');
 var fs = require('fs');
 
-var RULESETURL = 'https://raw.githubusercontent.com/holidayextras/culture/e9a5285fec17432545085fc0d10110d05782a542/.eslintrc';
+var RULESETURL = 'https://raw.githubusercontent.com/holidayextras/culture/2a6717c80c1d1e3b8e84e54c272e36c9ee3a496d/.eslintrc';
 
 var makeUp = module.exports = {};
 
