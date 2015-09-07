@@ -1,3 +1,4 @@
+* **5.3.0** - Filtering files by a git history date now supported.
 * **5.2.0** - Updated linting ruleset used.
 * **5.1.0** - Add support for eslint react plugin.
 * **5.0.0** - Rules are now downloaded into the current directory if not already present.

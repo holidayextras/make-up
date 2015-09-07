@@ -32,23 +32,30 @@ makeup.check(options, function(error, results) {
 
 ### Linting
 
-To lint all the files in a project run the following:
+To lint all the files in specific directories run the following:
 
     node_modules/.bin/make-up directory1 directory2
 
 The current directory is always automatically included.
+
+This will automatically download the lint [ruleset](https://github.com/holidayextras/culture/blob/linting/.eslintrc) from Holiday Extras [culture repo](https://github.com/holidayextras/culture)
+and check any JS or JSX files found.
+
+If any errors are found a non zero exit status will be returned equal to the number of errors.
+
+#### Limiting by date
 
 To only check files newer than a specific date, use the following option:
 
     node_modules/.bin/make-up -s 'Sun, 09 Oct 2011 23:24:11 GMT' directory1 directory2
     node_modules/.bin/make-up -s 'Tue Jun 09 2015 14:49:57 GMT+0100 (BST)' directory1 directory2
 
-The `-s` (since) argument can be in any format that the [JS Date](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Date) constructor supports.
+Alternatively, to only check files newer than a specific git history date, use the following option:
 
-This will automatically download the lint [ruleset](https://github.com/holidayextras/culture/blob/linting/.eslintrc) from Holiday Extras [culture repo](https://github.com/holidayextras/culture)
-and check any JS or JSX files found.
+    node_modules/.bin/make-up -g 'Sun, 09 Oct 2011 23:24:11 GMT' directory1 directory2
+    node_modules/.bin/make-up -g 'Tue Jun 09 2015 14:49:57 GMT+0100 (BST)' directory1 directory2
 
-If any errors are found a non zero exit status will be returned equal to the number of errors.
+The `-s` (since) and `-g` (gitSince) arguments can be in any format that the [JS Date](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Date) constructor supports.
 
 ## Developing
 
