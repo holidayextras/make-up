@@ -13,6 +13,28 @@ var GitSinceFilter = require('../../lib/GitSinceFilter');
 
 describe('GitSinceFilter', function() {
 
+  describe('process()', function() {
+
+    context('with an invalid date', function() {
+
+      var testCallback = sinon.spy();
+
+      beforeEach(function() {
+        GitSinceFilter.process('before the time began', [], testCallback);
+      });
+
+      it('runs the callback', function() {
+        testCallback.should.of.been.called();
+      });
+
+      it('passes an error to the callback', function() {
+        testCallback.should.of.been.calledWith(Error('Invalid date'));
+      });
+
+    });
+
+  });
+
   describe('_fileIsNewer()', function() {
 
     context('when the file is found in the github list', function() {
@@ -47,18 +69,6 @@ describe('GitSinceFilter', function() {
 
       it('does not change it', function() {
         GitSinceFilter._addRootLevelSlashes('friend/imaginary.js').should.equal('friend/imaginary.js');
-      });
-
-    });
-
-  });
-
-  describe('_formatDate()', function() {
-
-    context('with a date string format only Date() knows about', function() {
-
-      it('formats the string in an ISO format', function() {
-        GitSinceFilter._formatDate('Tue Jun 09 2015 14:49:57 GMT+0100 (BST)').should.match(/\d{4}-\d{2}-\d{2}T\d{2}\:\d{2}\:\d{2}\+\d{2}\:\d{2}/);
       });
 
     });

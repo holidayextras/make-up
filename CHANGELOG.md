@@ -1,3 +1,4 @@
+* **5.3.1** - Returns the correct error when an incorrect date is used with the git history feature
 * **5.3.0** - Filtering files by a git history date now supported.
 * **5.2.0** - Updated linting ruleset used.
 * **5.1.0** - Add support for eslint react plugin.
