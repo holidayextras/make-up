@@ -2,7 +2,6 @@
 
 var eslint = require('eslint');
 var glob = require('glob-all');
-var temp = require('fs-temp');
 var https = require('https');
 var path = require('path');
 var fs = require('fs');
@@ -40,19 +39,11 @@ makeUp.check = function(options, callback) {
 
 makeUp._downloadConfig = function(callback) {
   console.log('Downloading ruleset...');
-  var stream = temp.createWriteStream();
-  var tempPath;
-
-  stream.on('path', function(name) {
-    tempPath = name;
-  });
+  var stream = fs.createWriteStream(makeUp.ESLINTRC);
 
   stream.on('finish', function() {
     this.close(function() {
-      // move the downloaded config into the project
-      fs.rename(tempPath, makeUp.ESLINTRC, function(err) {
-        callback(err);
-      });
+      callback();
     });
   });
 
