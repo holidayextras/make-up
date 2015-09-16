@@ -13,6 +13,28 @@ var GitBaseBranchFilter = require('../../lib/GitBaseBranchFilter');
 
 describe('GitBaseBranchFilter', function() {
 
+  describe('process()', function() {
+
+    context('without a base branch', function() {
+
+      var testCallback = sinon.spy();
+
+      beforeEach(function() {
+        GitBaseBranchFilter.process(null, [], testCallback);
+      });
+
+      it('runs the callback', function() {
+        testCallback.should.of.been.called();
+      });
+
+      it('passes an error to the callback', function() {
+        testCallback.should.of.been.calledWith(Error('Invalid date'));
+      });
+
+    });
+
+  });
+
   describe('_fileIsNewer()', function() {
 
     context('when the file is found in the github list', function() {
