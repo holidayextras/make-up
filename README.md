@@ -50,10 +50,12 @@ To only check files newer than a specific date, use the following option:
     node_modules/.bin/make-up -s 'Sun, 09 Oct 2011 23:24:11 GMT' directory1 directory2
     node_modules/.bin/make-up -s 'Tue Jun 09 2015 14:49:57 GMT+0100 (BST)' directory1 directory2
 
-Alternatively, to only check files newer than a specific git history date, use the following option:
+#### Limiting by current git branch
 
-    node_modules/.bin/make-up -g 'Sun, 09 Oct 2011 23:24:11 GMT' directory1 directory2
-    node_modules/.bin/make-up -g 'Tue Jun 09 2015 14:49:57 GMT+0100 (BST)' directory1 directory2
+To only check files that have changed on the current git branch, use the following option:
+
+    node_modules/.bin/make-up -g master directory1 directory2
+    node_modules/.bin/make-up -g otherBaseBranch directory1 directory2
 
 The `-s` (since) and `-g` (gitSince) arguments can be in any format that the [JS Date](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Date) constructor supports.
 

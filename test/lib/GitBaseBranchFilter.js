@@ -9,16 +9,16 @@ chai.use(dirtyChai);
 chai.use(sinonChai);
 global.sinon = sinon;
 
-var GitSinceFilter = require('../../lib/GitSinceFilter');
+var GitBaseBranchFilter = require('../../lib/GitBaseBranchFilter');
 
-describe('GitSinceFilter', function() {
+describe('GitBaseBranchFilter', function() {
 
   describe('_fileIsNewer()', function() {
 
     context('when the file is found in the github list', function() {
 
       it('returns true', function() {
-        GitSinceFilter._fileIsNewer(['imaginary.js'], 'imaginary.js').should.be.true();
+        GitBaseBranchFilter._fileIsNewer(['imaginary.js'], 'imaginary.js').should.be.true();
       });
 
     });
@@ -26,7 +26,7 @@ describe('GitSinceFilter', function() {
     context('when the file is not found in the github list', function() {
 
       it('returns false', function() {
-        GitSinceFilter._fileIsNewer(['real.js'], 'imaginary.js').should.be.false();
+        GitBaseBranchFilter._fileIsNewer(['real.js'], 'imaginary.js').should.be.false();
       });
 
     });
@@ -38,7 +38,7 @@ describe('GitSinceFilter', function() {
     context('with a root level file', function() {
 
       it('adds slashes', function() {
-        GitSinceFilter._addRootLevelSlashes('imaginary.js').should.equal('./imaginary.js');
+        GitBaseBranchFilter._addRootLevelSlashes('imaginary.js').should.equal('./imaginary.js');
       });
 
     });
@@ -46,19 +46,7 @@ describe('GitSinceFilter', function() {
     context('with a nested file', function() {
 
       it('does not change it', function() {
-        GitSinceFilter._addRootLevelSlashes('friend/imaginary.js').should.equal('friend/imaginary.js');
-      });
-
-    });
-
-  });
-
-  describe('_formatDate()', function() {
-
-    context('with a date string format only Date() knows about', function() {
-
-      it('formats the string in an ISO format', function() {
-        GitSinceFilter._formatDate('Tue Jun 09 2015 14:49:57 GMT+0100 (BST)').should.match(/\d{4}-\d{2}-\d{2}T\d{2}\:\d{2}\:\d{2}\+\d{2}\:\d{2}/);
+        GitBaseBranchFilter._addRootLevelSlashes('friend/imaginary.js').should.equal('friend/imaginary.js');
       });
 
     });

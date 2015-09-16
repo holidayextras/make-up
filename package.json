@@ -1,7 +1,7 @@
 {
   "name": "make-up",
-  "version": "5.3.1",
-  "description": "Handle configurations for Holiday Extras",
+  "version": "5.4.0",
+  "description": "Handle configurations for projects",
   "main": "index.js",
   "scripts": {
     "test": "bin/make-up.js lib test bin script && node_modules/.bin/istanbul cover node_modules/.bin/_mocha -- --recursive -R spec",
