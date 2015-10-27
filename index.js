@@ -9,7 +9,7 @@ var fs = require('fs');
 var SinceFilter = require('./lib/SinceFilter');
 var GitSinceFilter = require('./lib/GitSinceFilter');
 
-var RULESETURL = 'https://raw.githubusercontent.com/holidayextras/culture/2a6717c80c1d1e3b8e84e54c272e36c9ee3a496d/.eslintrc';
+var RULESETURL = 'https://raw.githubusercontent.com/holidayextras/culture/cb39a21b3be51d5e10558d20d24c487191f903e5/.eslintrc';
 
 var makeUp = module.exports = {};
 

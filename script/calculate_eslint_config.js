@@ -1,4 +1,7 @@
 #!/usr/bin/env node
+
+'use strict';
+
 var CLIEngine = require('eslint').CLIEngine;
 
 if (!process.argv[2]) {
