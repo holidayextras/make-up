@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "bin/make-up.js lib test bin script && node_modules/.bin/istanbul cover node_modules/.bin/_mocha -- --recursive -R spec",
-    "postinstall": "rm -f .eslintrc"
+    "postinstall": "rm -f ../../.eslintrc"
   },
   "author": "",
   "repository": {
