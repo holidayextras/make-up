@@ -78,6 +78,7 @@ describe('makeup', function() {
       beforeEach(function() {
         downloadStub = sinon.stub(makeup, '_downloadConfig');
         existsStub = sinon.stub(fs, 'existsSync');
+        existsStub.returns(false);
       });
 
       afterEach(function() {
@@ -88,7 +89,6 @@ describe('makeup', function() {
       context('without any existing rules', function() {
 
         beforeEach(function() {
-          existsStub.returns(false);
           makeup.check( { dirs: [] }, function() {});
         });
 
@@ -101,7 +101,7 @@ describe('makeup', function() {
       context('with existing rules', function() {
 
         beforeEach(function() {
-          existsStub.returns(true);
+          existsStub.withArgs(makeup.ESLINTRC).returns(true);
           makeup.check( { dirs: [] }, function() {});
         });
 
