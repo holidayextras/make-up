@@ -4,7 +4,9 @@
   "description": "Handle configurations for Holiday Extras",
   "main": "index.js",
   "scripts": {
-    "test": "bin/make-up.js lib test bin script && node_modules/.bin/istanbul cover node_modules/.bin/_mocha -- --recursive -R spec",
+    "lint": "bin/make-up.js lib test bin script",
+    "test": "istanbul cover node_modules/.bin/_mocha -- --recursive -R spec",
+    "ci": "npm run lint && npm test",
     "postinstall": "rm -f ../../.eslintrc"
   },
   "author": "",
@@ -33,10 +35,12 @@
     "sinon-chai": "2.8.0"
   },
   "dependencies": {
+    "async": "^1.5.0",
     "eslint": "1.8.0",
     "eslint-plugin-react": "3.7.1",
     "glob-all": "3.0.1",
     "minimist": "1.1.1",
-    "moment": "2.10.6"
+    "moment": "2.10.6",
+    "snyk-report": "git+ssh://git@github.com/holidayextras/snyk-report.git#exports"
   }
 }
