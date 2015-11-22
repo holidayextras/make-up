@@ -40,5 +40,6 @@
     "eslint-plugin-react": "3.7.1",
     "glob-all": "3.0.1",
     "minimist": "1.1.1",
-    "moment": "2.10.6"  }
+    "moment": "2.10.6"
+  }
 }
