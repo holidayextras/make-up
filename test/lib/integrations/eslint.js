@@ -1,5 +1,6 @@
 'use strict';
 
+var fs = require('fs');
 var chai = require('chai');
 var sinonChai = require('sinon-chai');
 var dirtyChai = require('dirty-chai');
@@ -31,6 +32,67 @@ describe('EslintIntegration', function() {
 
   });
 
+  describe('run()', function() {
+
+    context('without an array of directories given', function() {
+
+      var testCallback = sinon.spy();
+
+      beforeEach(function() {
+        EslintIntegration.run({}, testCallback);
+      });
+
+      it('returns an error', function() {
+        testCallback.should.have.been.calledWith(Error('Directory list must be an array'));
+      });
+
+    });
+
+    describe('Rule download', function() {
+
+      var downloadStub;
+      var existsStub;
+
+      beforeEach(function() {
+        downloadStub = sinon.stub(EslintIntegration, '_downloadConfig');
+        existsStub = sinon.stub(fs, 'existsSync');
+        existsStub.returns(false);
+      });
+
+      afterEach(function() {
+        downloadStub.restore();
+        existsStub.restore();
+      });
+
+      context('without any existing rules', function() {
+
+        beforeEach(function() {
+          EslintIntegration.run( { dirs: [] }, function() {});
+        });
+
+        it('downloads new rules', function() {
+          downloadStub.should.have.been.called();
+        });
+
+      });
+
+      context('with existing rules', function() {
+
+        beforeEach(function() {
+          existsStub.withArgs(EslintIntegration.ESLINTRC).returns(true);
+          EslintIntegration.run( { dirs: [] }, function() {});
+        });
+
+        it('does not download any rules', function() {
+          downloadStub.should.not.have.been.called();
+        });
+
+      });
+
+    });
+
+  });
+
   describe('_checkFiles()', function() {
 
     it('is a function', function() {
@@ -49,8 +111,8 @@ describe('EslintIntegration', function() {
         testCallback.should.have.been.called();
       });
 
-      it('calls back with no errors', function() {
-        testCallback.should.have.been.calledWith(undefined, { errors: 0, formatted: '', warnings: 0 });
+      it('does not give the callback an error', function() {
+        (typeof testCallback.args[0][0]).should.equal('undefined');
       });
 
     });
@@ -79,10 +141,6 @@ describe('EslintIntegration', function() {
 
       it('does not give the callback an error', function() {
         (typeof testCallback.args[0][0]).should.equal('undefined');
-      });
-
-      it('gives the callback a results object', function() {
-        Object.keys(testCallback.args[0][1]).should.deep.equal(['errors', 'warnings', 'formatted']);
       });
 
     });
