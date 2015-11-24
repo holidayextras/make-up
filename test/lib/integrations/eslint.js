@@ -145,6 +145,36 @@ describe('EslintIntegration', function() {
 
     });
 
+    context('with a linting problem', function() {
+
+      var testCallback = sinon.spy();
+
+      before(function() {
+        eslint.CLIEngine = function() {
+          return {
+            executeOnFiles: function() {
+              return {
+                errorCount: 300
+              };
+            },
+            getFormatter: function() {
+              return function() {};
+            }
+          };
+        };
+        EslintIntegration._checkFiles(['imaginary.js'], testCallback);
+      });
+
+      it('runs the callback', function() {
+        testCallback.should.have.been.called();
+      });
+
+      it('gives the error to the callback', function() {
+        testCallback.args[0][0].message.should.equal('Failed linting');
+      });
+
+    });
+
   });
 
   describe('_directoryToGlob()', function() {

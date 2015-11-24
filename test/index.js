@@ -34,10 +34,47 @@ describe('makeup', function() {
 
   describe('check()', function() {
 
-    it('is a function', function() {
-      makeup.check.should.be.a('function');
+    var options;
+    var integrationStub;
+
+    before(function() {
+      options = {};
+      var testCallback = sinon.stub();
+      integrationStub = sinon.stub(makeup, '_runIntegration');
+      makeup.checkIntegrations = [{
+        run: sinon.stub()
+      },
+      {
+        run: sinon.stub()
+      }];
+      makeup.check(options, testCallback);
     });
 
+    after(function() {
+      integrationStub.restore();
+    });
+
+    it('runs the given integrations', function() {
+      integrationStub.should.have.been.calledTwice();
+    });
+  });
+
+  describe('_runIntegration()', function() {
+
+    var item;
+    var testCallback;
+
+    before(function() {
+      item = {
+        run: sinon.stub()
+      };
+      testCallback = sinon.stub();
+      makeup._runIntegration({}, item, testCallback);
+    });
+
+    it('runs the given integration', function() {
+      item.run.should.have.been.called();
+    });
   });
 
 });

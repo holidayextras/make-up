@@ -15,7 +15,6 @@ makeUp.path = function(item) {
 };
 
 makeUp.check = function(options, callback) {
-  this._options = options;
   async.map(this.checkIntegrations, this._runIntegration.bind(undefined, options), callback);
 };
 
