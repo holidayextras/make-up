@@ -56,10 +56,6 @@ Alternatively, to only check files newer than a specific git history date, use t
 
 The `-s` (since) and `-g` (gitSince) arguments can be in any format that the [JS Date](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Date) constructor supports.
 
-### Dependency vulnerabilities
-
-This tool will also check the current project's dependency tree for security vulnerabilities using [Snyk](https://snyk.io/).
-
 ## Extending
 
 To add a new integration to this project follow the steps below:
