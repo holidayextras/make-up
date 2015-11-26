@@ -19,5 +19,5 @@ makeUp.check = function(options, callback) {
 };
 
 makeUp._runIntegration = function(options, item, callback) {
-  item.run(options, callback);
+  item.run(options, process.stdout, callback);
 };

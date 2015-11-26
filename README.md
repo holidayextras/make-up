@@ -62,9 +62,9 @@ To add a new integration to this project follow the steps below:
 
 1. Create a new js module in the `lib/integrations` directory.
 1. Make sure this module exports an object.
-1. Create a function named `run` on the new integration object, this will take two arguments; an `options` object and `callback` function.
+1. Create a function named `run` on the new integration object, this will take three arguments; an `options` object, a writable `stream` and `callback` function.
+1. The `run` function will output any detail to the user using the provided stream.
 1. The `run` function will run the given callback in the usual node manner with the first argument being set as an error object if needed.
-1. The `run` function will output any detail via `console.log` statements.
 1. Add the new integration to the `checkIntegrations` object in the `index.js` file.
 
 ### Testing eslint configs

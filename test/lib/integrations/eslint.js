@@ -39,7 +39,7 @@ describe('EslintIntegration', function() {
       var testCallback = sinon.spy();
 
       beforeEach(function() {
-        EslintIntegration.run({}, testCallback);
+        EslintIntegration.run({}, process.stderr, testCallback);
       });
 
       it('returns an error', function() {
@@ -67,7 +67,7 @@ describe('EslintIntegration', function() {
       context('without any existing rules', function() {
 
         beforeEach(function() {
-          EslintIntegration.run( { dirs: [] }, function() {});
+          EslintIntegration.run( { dirs: [] }, process.stdout, function() {});
         });
 
         it('downloads new rules', function() {
@@ -80,7 +80,7 @@ describe('EslintIntegration', function() {
 
         beforeEach(function() {
           existsStub.withArgs(EslintIntegration.ESLINTRC).returns(true);
-          EslintIntegration.run( { dirs: [] }, function() {});
+          EslintIntegration.run( { dirs: [] }, process.stdout, function() {});
         });
 
         it('does not download any rules', function() {
@@ -104,7 +104,7 @@ describe('EslintIntegration', function() {
       var testCallback = sinon.spy();
 
       before(function() {
-        EslintIntegration._checkFiles([], testCallback);
+        EslintIntegration._checkFiles([], process.stdout, testCallback);
       });
 
       it('runs the callback', function() {
@@ -128,11 +128,13 @@ describe('EslintIntegration', function() {
               return {};
             },
             getFormatter: function() {
-              return function() {};
+              return function() {
+                return 'something';
+              };
             }
           };
         };
-        EslintIntegration._checkFiles(['imaginary.js'], testCallback);
+        EslintIntegration._checkFiles(['imaginary.js'], process.stdout, testCallback);
       });
 
       it('runs the callback', function() {
@@ -158,11 +160,13 @@ describe('EslintIntegration', function() {
               };
             },
             getFormatter: function() {
-              return function() {};
+              return function() {
+                return 'something else';
+              };
             }
           };
         };
-        EslintIntegration._checkFiles(['imaginary.js'], testCallback);
+        EslintIntegration._checkFiles(['imaginary.js'], process.stdout, testCallback);
       });
 
       it('runs the callback', function() {
@@ -192,7 +196,7 @@ describe('EslintIntegration', function() {
       var testCallback = sinon.spy();
 
       before(function() {
-        EslintIntegration._processGlobs({}, testCallback, 'test error');
+        EslintIntegration._processGlobs({}, process.stdout, testCallback, 'test error');
       });
 
       it('runs the callback', function() {
@@ -215,7 +219,7 @@ describe('EslintIntegration', function() {
         files = [];
         callback = sinon.spy();
         _checkFiles = sinon.stub(EslintIntegration, '_checkFiles');
-        EslintIntegration._processGlobs({}, callback, undefined, files);
+        EslintIntegration._processGlobs({}, process.stdout, callback, undefined, files);
       });
 
       after(function() {
@@ -240,7 +244,7 @@ describe('EslintIntegration', function() {
       before(function() {
         stub = sinon.stub(EslintIntegration, '_checkFiles');
         files = ['imaginary.js'];
-        EslintIntegration._processGlobs({}, function() {}, undefined, files);
+        EslintIntegration._processGlobs({}, process.stdout, function() {}, undefined, files);
       });
 
       after(function() {
@@ -258,7 +262,7 @@ describe('EslintIntegration', function() {
         });
 
         it('passes the callback', function() {
-          stub.args[0][1].should.be.a('function');
+          stub.args[0][2].should.be.a('function');
         });
 
       });
