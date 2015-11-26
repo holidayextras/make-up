@@ -11,8 +11,9 @@ var options = {
   since: argv.s,
   gitSince: argv.g
 };
-MakeUp.check(options, function(error, results) {
-  if (error) throw error;
-  console.log(results.formatted);
-  process.exit(results.errors); // eslint-disable-line no-process-exit
+MakeUp.check(options, function(err) {
+  if (err) {
+    console.log(err.message);
+    process.exit(1); // eslint-disable-line no-process-exit
+  }
 });
