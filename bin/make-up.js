@@ -13,7 +13,7 @@ var options = {
 };
 MakeUp.check(options, function(err) {
   if (err) {
-    console.log(err.message);
+    console.log('ERROR: ' + err.message);
     process.exit(1); // eslint-disable-line no-process-exit
   }
 });

@@ -2,12 +2,15 @@
 
 var path = require('path');
 var async = require('async');
+var streams = require('memory-streams');
 var EslintIntegration = require('./lib/integrations/eslint');
+var SnykIntegration = require('./lib/integrations/snyk');
 
 var makeUp = module.exports = {};
 
 makeUp.checkIntegrations = [
-  EslintIntegration
+  EslintIntegration,
+  SnykIntegration
 ];
 
 makeUp.path = function(item) {
@@ -19,5 +22,10 @@ makeUp.check = function(options, callback) {
 };
 
 makeUp._runIntegration = function(options, item, callback) {
-  item.run(options, process.stdout, callback);
+  var intStream = new streams.WritableStream();
+  intStream.write('\n' + item.label + '\n==============\n');
+  item.run(options, intStream, function(err, result) {
+    console.log(intStream.toString());
+    callback(err, result);
+  });
 };
