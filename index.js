@@ -21,7 +21,7 @@ makeUp.check = function(options, callback) {
   async.map(this.checkIntegrations, this._runIntegration.bind(undefined, options), function(error, allStreams) {
     var result = allStreams.reduce(function(previous, stream) {
       return previous + stream.toString();
-    });
+    }, '');
     callback(error, result);
   });
 };

@@ -37,7 +37,7 @@ describe('EslintIntegration', function() {
 
     var testStream;
 
-    beforeEach(function(){
+    beforeEach(function() {
       testStream = new streams.WritableStream();
       testStream.write('TEST');
     });
