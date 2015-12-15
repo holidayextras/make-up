@@ -13,6 +13,7 @@ global.sinon = sinon;
 var EslintIntegration = require('../../../lib/integrations/eslint');
 var minimatch = require('minimatch');
 var eslint = require('eslint');
+var streams = require('memory-streams');
 
 describe('EslintIntegration', function() {
 
@@ -34,16 +35,27 @@ describe('EslintIntegration', function() {
 
   describe('run()', function() {
 
+    var testStream;
+
+    beforeEach(function(){
+      testStream = new streams.WritableStream();
+      testStream.write('TEST');
+    });
+
     context('without an array of directories given', function() {
 
       var testCallback = sinon.spy();
 
       beforeEach(function() {
-        EslintIntegration.run({}, process.stderr, testCallback);
+        EslintIntegration.run({}, testStream, testCallback);
       });
 
       it('returns an error', function() {
         testCallback.should.have.been.calledWith(Error('Directory list must be an array'));
+      });
+
+      it('returns the stream', function() {
+        testCallback.args[0][1].toString().should.equal('TEST');
       });
 
     });

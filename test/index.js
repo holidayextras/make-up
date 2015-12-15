@@ -10,6 +10,7 @@ chai.use(sinonChai);
 global.sinon = sinon;
 
 var path = require('path');
+var streams = require('memory-streams');
 var makeup = require('../index');
 
 describe('makeup', function() {
@@ -36,11 +37,18 @@ describe('makeup', function() {
 
     var options;
     var integrationStub;
+    var testCallback;
 
     before(function() {
       options = {};
-      var testCallback = sinon.stub();
+      testCallback = sinon.stub();
+
+      var testStream = new streams.WritableStream();
+      testStream.write('TEST');
+
       integrationStub = sinon.stub(makeup, '_runIntegration');
+      integrationStub.yields(null, testStream);
+
       makeup.checkIntegrations = [{
         run: sinon.stub()
       },
@@ -56,6 +64,14 @@ describe('makeup', function() {
 
     it('runs the given integrations', function() {
       integrationStub.should.have.been.calledTwice();
+    });
+
+    it('runs the provided callback', function() {
+      testCallback.should.have.been.called();
+    });
+
+    it('joins any integration output', function() {
+      testCallback.args[0][1].should.equal('TESTTEST');
     });
   });
 
