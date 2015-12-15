@@ -19,10 +19,10 @@ makeUp.path = function(item) {
 
 makeUp.check = function(options, callback) {
   async.map(this.checkIntegrations, this._runIntegration.bind(undefined, options), function(error, allStreams) {
-    allStreams.forEach(function(stream) {
-      console.log(stream.toString());
+    var result = allStreams.reduce(function(previous, stream) {
+      return previous + stream.toString();
     });
-    callback(error);
+    callback(error, result);
   });
 };
 
