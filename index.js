@@ -27,9 +27,7 @@ makeUp.check = function(options, callback) {
 };
 
 makeUp._runIntegration = function(options, item, callback) {
-  var intStream = new streams.WritableStream();
-  intStream.write('\n' + item.label + '\n==============\n');
-  item.run(options, intStream, function(err, result) {
-    callback(err, result);
-  });
+  var integrationOutput = new streams.WritableStream();
+  integrationOutput.write('\n' + item.label + '\n==============\n');
+  item.run(options, integrationOutput, callback);
 };
