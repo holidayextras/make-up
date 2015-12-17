@@ -11,9 +11,10 @@ var options = {
   since: argv.s,
   gitSince: argv.g
 };
-MakeUp.check(options, function(err) {
+MakeUp.check(options, function(err, result) {
+  console.log(result);
   if (err) {
-    console.log(err.message);
+    console.log('ERROR: ' + err.message);
     process.exit(1); // eslint-disable-line no-process-exit
   }
 });
