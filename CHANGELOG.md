@@ -1,6 +1,7 @@
+* **7.1.0** - Check for exclusive mocha tests using latest .eslintrc from culture repo
 * **7.0.0** - Now also checking for dependency vulnerabilities using [https://snyk.io/](SNYK). Updated integration interface to use streams.
 * **6.1.0** - Update to use latest .eslintrc from culture repo
-* **6.0.0** - Updated eslint to 1.8.0 and eslint-plugin-react to 3.7.1. Also updated linting ruleset used. 
+* **6.0.0** - Updated eslint to 1.8.0 and eslint-plugin-react to 3.7.1. Also updated linting ruleset used.
 * **5.4.0** - Updated linting ruleset used.
 * **5.3.1** - Remove redundant rename of rule file.
 * **5.3.0** - Filtering files by a git history date now supported.
