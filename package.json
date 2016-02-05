@@ -14,10 +14,7 @@
     "type": "git",
     "url": "git://github.com/holidayextras/make-up.git"
   },
-  "licenses": {
-    "type": "UNLICENSE",
-    "url": "https://github.com/holidayextras/make-up/blob/master/UNLICENSE"
-  },
+  "license": "Unlicense",
   "bin": {
     "make-up": "./bin/make-up.js"
   },
