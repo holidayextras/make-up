@@ -1,3 +1,4 @@
+* **7.2.0** - Updated rules in configs/scss-lint.yml. If used with SCSS-Lint, you need version 0.34+
 * **7.1.0** - Check for exclusive mocha tests using latest .eslintrc from culture repo
 * **7.0.0** - Now also checking for dependency vulnerabilities using [https://snyk.io/](SNYK). Updated integration interface to use streams.
 * **6.1.0** - Update to use latest .eslintrc from culture repo
