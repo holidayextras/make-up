@@ -8,9 +8,6 @@ linters:
   BorderZero:
     enabled: true
 
-  CapitalizationInSelector:
-    enabled: true
-
   ColorKeyword:
     enabled: true
 
@@ -50,7 +47,7 @@ linters:
   HexValidation:
     enabled: true
 
-  IdWithExtraneousSelector:
+  IdWithSelector:
     enabled: true
 
   ImportPath:
@@ -128,7 +125,7 @@ linters:
     enabled: true
     style: single_quotes # or double_quotes
 
-  TrailingSemicolonAfterPropertyValue:
+  TrailingSemicolon:
     enabled: true
 
   UnnecessaryMantissa:
@@ -143,7 +140,7 @@ linters:
   UrlQuotes:
     enabled: true
 
-  VendorPrefixes:
+  VendorPrefix:
     enabled: false
 
   ZeroUnit:
