@@ -1,3 +1,4 @@
+* **7.2.0** - Updated eslint to 1.10.3 and eslint-plugin-react to 3.16.1.
 * **7.1.0** - Check for exclusive mocha tests using latest .eslintrc from culture repo
 * **7.0.0** - Now also checking for dependency vulnerabilities using [https://snyk.io/](SNYK). Updated integration interface to use streams.
 * **6.1.0** - Update to use latest .eslintrc from culture repo
