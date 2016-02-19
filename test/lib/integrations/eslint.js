@@ -5,7 +5,7 @@ var chai = require('chai');
 var sinonChai = require('sinon-chai');
 var dirtyChai = require('dirty-chai');
 var sinon = require('sinon');
-chai.should();
+var should = chai.should();
 chai.use(dirtyChai);
 chai.use(sinonChai);
 global.sinon = sinon;
@@ -203,6 +203,93 @@ describe('EslintIntegration', function() {
 
   });
 
+  describe('_getFilters()', function() {
+
+    context('with null options', function() {
+
+      it('returns an empty filters list', function() {
+        EslintIntegration._getFilters(null).should.deep.equal([]);
+      });
+
+    });
+
+    context('with empty options', function() {
+
+      it('returns an empty filters list', function() {
+        EslintIntegration._getFilters({ }).should.deep.equal([]);
+      });
+
+    });
+
+    context('with a single option', function() {
+
+      it('returns an array with a single filter function', function() {
+        EslintIntegration._getFilters({ since: 'since' }).should.be.an('array')
+          .with.length(1)
+          .and.with.deep.property('[0]').a('function');
+      });
+
+    });
+
+    context('with two options', function() {
+
+      it('returns an array with two filter functions', function() {
+        var result = EslintIntegration._getFilters({ since: 'since', gitSince: 'gitSince' });
+        result.should.be.an('array').with.length(2);
+        result.should.have.deep.property('[0]').be.a('function');
+        result.should.have.deep.property('[1]').be.a('function');
+      });
+
+    });
+
+  });
+
+  describe('_filterFilenames()', function() {
+
+    context('with null filters', function() {
+
+      it('returns unmodified files', function(done) {
+        EslintIntegration._filterFilenames('files', null, function(error, filteredFiles) {
+          should.not.exist(error);
+          filteredFiles.should.equal('files');
+          done();
+        });
+      });
+
+    });
+
+    context('with empty filters', function() {
+
+      it('returns unmodified files', function(done) {
+        EslintIntegration._filterFilenames('files', [], function(error, filteredFiles) {
+          should.not.exist(error);
+          filteredFiles.should.equal('files');
+          done();
+        });
+      });
+
+    });
+
+    context('with filters', function() {
+
+      it('applies chain of filters correctly', function(done) {
+        var filters = [
+          sinon.stub().yields(null, 'filteredFiles1'),
+          sinon.stub().yields(null, 'filteredFiles2')
+        ];
+        EslintIntegration._filterFilenames('files', filters, function(error, filteredFiles) {
+          should.not.exist(error);
+          filters[0].should.have.been.calledWith('files');
+          filters[1].should.have.been.calledWith('filteredFiles1');
+          filteredFiles.should.equal('filteredFiles2');
+          done();
+        });
+      });
+
+    });
+
+  });
+
   describe('_processGlobs', function() {
 
     context('with an error', function() {
@@ -290,6 +377,15 @@ describe('EslintIntegration', function() {
           EslintIntegration._processGlobs({ gitSince: 'gitSince' }, 'output', function() {
             SinceFilter.process.should.not.have.been.called();
             GitSinceFilter.process.should.have.been.calledWith('gitSince', 'files');
+            EslintIntegration._checkFiles.should.have.been.calledWith('gitSinceFilteredFiles', 'output');
+            done();
+          }, undefined, 'files');
+        });
+
+        it('calls all enabled filters', function(done) {
+          EslintIntegration._processGlobs({ since: 'since', gitSince: 'gitSince' }, 'output', function() {
+            SinceFilter.process.should.have.been.calledWith('since', 'files');
+            GitSinceFilter.process.should.have.been.calledWith('gitSince', 'sinceFilteredFiles');
             EslintIntegration._checkFiles.should.have.been.calledWith('gitSinceFilteredFiles', 'output');
             done();
           }, undefined, 'files');
