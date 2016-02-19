@@ -11,6 +11,8 @@ chai.use(sinonChai);
 global.sinon = sinon;
 
 var EslintIntegration = require('../../../lib/integrations/eslint');
+var SinceFilter = require('../../../lib/SinceFilter');
+var GitSinceFilter = require('../../../lib/GitSinceFilter');
 var minimatch = require('minimatch');
 var eslint = require('eslint');
 var streams = require('memory-streams');
@@ -223,58 +225,74 @@ describe('EslintIntegration', function() {
 
     context('with no files', function() {
 
-      var files;
       var callback;
-      var _checkFiles;
 
       before(function() {
-        files = [];
         callback = sinon.spy();
-        _checkFiles = sinon.stub(EslintIntegration, '_checkFiles');
-        EslintIntegration._processGlobs({}, process.stdout, callback, undefined, files);
+        this.sandbox = sinon.sandbox.create();
+        this.sandbox.stub(EslintIntegration, '_checkFiles');
+        this.sandbox.stub(SinceFilter, 'process');
+        this.sandbox.stub(GitSinceFilter, 'process');
+        EslintIntegration._processGlobs({}, process.stdout, callback, undefined, []);
       });
 
       after(function() {
-        _checkFiles.restore();
+        this.sandbox.restore();
       });
 
       it('calls back with an error', function() {
         callback.should.have.been.calledWith(sinon.match.instanceOf(Error));
       });
 
+      it('does not filter the files', function() {
+        SinceFilter.process.should.not.have.been.called();
+        GitSinceFilter.process.should.not.have.been.called();
+      });
+
       it('does not check the files', function() {
-        _checkFiles.should.not.have.been.called();
+        EslintIntegration._checkFiles.should.not.have.been.called();
       });
 
     });
 
     context('with some files', function() {
 
-      var stub;
-      var files;
-
-      before(function() {
-        stub = sinon.stub(EslintIntegration, '_checkFiles');
-        files = ['imaginary.js'];
-        EslintIntegration._processGlobs({}, process.stdout, function() {}, undefined, files);
+      beforeEach(function() {
+        this.sandbox = sinon.sandbox.create();
+        this.sandbox.stub(EslintIntegration, '_checkFiles').yields();
+        this.sandbox.stub(SinceFilter, 'process').yields(null, 'sinceFilteredFiles');
+        this.sandbox.stub(GitSinceFilter, 'process').yields(null, 'gitSinceFilteredFiles');
       });
 
-      after(function() {
-        stub.restore();
+      afterEach(function() {
+        this.sandbox.restore();
       });
 
       context('with _checkFiles', function() {
 
-        it('executes the function', function() {
-          stub.should.have.been.called();
+        it('calls the function with the expected parameters', function(done) {
+          EslintIntegration._processGlobs({}, 'output', function() {
+            EslintIntegration._checkFiles.should.have.been.calledWith('files', 'output');
+            done();
+          }, undefined, 'files');
         });
 
-        it('passes the list of files', function() {
-          stub.args[0][0].should.deep.equal(files);
+        it('calls since filter if enabled by option', function(done) {
+          EslintIntegration._processGlobs({ since: 'since' }, 'output', function() {
+            SinceFilter.process.should.have.been.calledWith('since', 'files');
+            GitSinceFilter.process.should.not.have.been.called();
+            EslintIntegration._checkFiles.should.have.been.calledWith('sinceFilteredFiles', 'output');
+            done();
+          }, undefined, 'files');
         });
 
-        it('passes the callback', function() {
-          stub.args[0][2].should.be.a('function');
+        it('calls git since filter if enabled by option', function(done) {
+          EslintIntegration._processGlobs({ gitSince: 'gitSince' }, 'output', function() {
+            SinceFilter.process.should.not.have.been.called();
+            GitSinceFilter.process.should.have.been.calledWith('gitSince', 'files');
+            EslintIntegration._checkFiles.should.have.been.calledWith('gitSinceFilteredFiles', 'output');
+            done();
+          }, undefined, 'files');
         });
 
       });
