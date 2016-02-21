@@ -33,26 +33,6 @@ describe('GitSinceFilter', function() {
 
   });
 
-  describe('_addRootLevelSlashes()', function() {
-
-    context('with a root level file', function() {
-
-      it('adds slashes', function() {
-        GitSinceFilter._addRootLevelSlashes('imaginary.js').should.equal('./imaginary.js');
-      });
-
-    });
-
-    context('with a nested file', function() {
-
-      it('does not change it', function() {
-        GitSinceFilter._addRootLevelSlashes('friend/imaginary.js').should.equal('friend/imaginary.js');
-      });
-
-    });
-
-  });
-
   describe('_formatDate()', function() {
 
     context('with a date string format only Date() knows about', function() {
