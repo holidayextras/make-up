@@ -1,5 +1,5 @@
-* **7.2.0** - Updated eslint to 1.10.3 and eslint-plugin-react to 3.16.1.
-			- Updated rules in configs/scss-lint.yml. If used with SCSS-Lint, you need version 0.34+
+* **8.0.0** - Allow filtering of files to lint by changes between git branches. Remove git since filter.
+* **7.2.0** - Updated eslint to 1.10.3 and eslint-plugin-react to 3.16.1. Updated rules in configs/scss-lint.yml. If used with SCSS-Lint, you need version 0.34+
 * **7.1.0** - Check for exclusive mocha tests using latest .eslintrc from culture repo
 * **7.0.0** - Now also checking for dependency vulnerabilities using [https://snyk.io/](SNYK). Updated integration interface to use streams.
 * **6.1.0** - Update to use latest .eslintrc from culture repo
