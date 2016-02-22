@@ -38,6 +38,7 @@
     "eslint-plugin-mocha": "1.1.0",
     "eslint-plugin-react": "3.16.1",
     "glob-all": "3.0.1",
+    "lodash.intersection": "4.1.0",
     "memory-streams": "^0.1.0",
     "minimist": "1.1.1",
     "moment": "2.10.6",
