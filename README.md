@@ -52,12 +52,17 @@ To only check files newer than a specific date, use the following option:
     node_modules/.bin/make-up -s 'Sun, 09 Oct 2011 23:24:11 GMT' directory1 directory2
     node_modules/.bin/make-up -s 'Tue Jun 09 2015 14:49:57 GMT+0100 (BST)' directory1 directory2
 
-Alternatively, to only check files newer than a specific git history date, use the following option:
+The `-s` (since) argument can be in any format that the [JS Date](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Date) constructor supports.
 
-    node_modules/.bin/make-up -g 'Sun, 09 Oct 2011 23:24:11 GMT' directory1 directory2
-    node_modules/.bin/make-up -g 'Tue Jun 09 2015 14:49:57 GMT+0100 (BST)' directory1 directory2
+#### Limiting by changes compared to git branch
 
-The `-s` (since) and `-g` (gitSince) arguments can be in any format that the [JS Date](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Date) constructor supports.
+To only check files that were modified in the current git branch compared to a specified git branch (typically `master`), use the `-b` command line switch followed by the branch name as in the following example:
+
+```
+node_modules/.bin/make-up -b master directory1 directory2
+```
+
+**⚠️Note:** if the `HEAD` branch you're comparing the current branch with is no longer the branch point for the current branch (i.e. new commits were made there meanwhile), this switch will naturally also lint the changed files in the new commits of the branch you're comparing with. You'll need to merge or rebase he compare to branch to go back to linting only the changed files in the current branch.
 
 ## Extending
 
