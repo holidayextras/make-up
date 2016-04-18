@@ -733,6 +733,7 @@
       2,
       "1tbs"
     ],
+    "callback-return": 2,
     "camelcase": [
       2,
       {
