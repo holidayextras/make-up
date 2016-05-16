@@ -12,9 +12,9 @@ var options = {
   gitBranch: argv.b
 };
 MakeUp.check(options, function(err, result) {
-  console.log(result);
   if (err) {
     console.log('ERROR: ' + err.message);
     process.exit(1); // eslint-disable-line no-process-exit
   }
+  console.log(result);
 });
