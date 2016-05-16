@@ -32,6 +32,19 @@ makeup.check(options, function(error, results) {
 
 Not that if you use Make-up with [scss-lint](https://github.com/brigade/scss-lint/), you need version 0.34+
 
+### Integrations
+
+Make-up currently features integrations with:
+
+- [`eslint`](http://eslint.org/)
+- [`snyk`](https://snyk.io/)
+
+Only the **ESLint** integration is enabled by default. You can use the `-i` command line switch to pass a comma separated list of explicitly enabled integrations:
+
+```
+node_modules/.bin/make-up -i eslint,snyk
+```
+
 ### Linting
 
 To lint all the files in specific directories run the following:

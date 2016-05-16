@@ -4,10 +4,18 @@
 
 var MakeUp = require('../index');
 
-var argv = require('minimist')(process.argv.slice(2));
+var argv = require('minimist')(
+  process.argv.slice(2),
+  {
+    default: {
+      i: 'eslint'
+    }
+  }
+);
 
 var options = {
   dirs: argv._,
+  integrations: argv.i,
   since: argv.s,
   gitBranch: argv.b
 };
