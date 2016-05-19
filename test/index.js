@@ -9,6 +9,7 @@ chai.use(dirtyChai);
 chai.use(sinonChai);
 global.sinon = sinon;
 
+var fs = require('fs');
 var path = require('path');
 var streams = require('memory-streams');
 var makeup = require('../index');
@@ -29,6 +30,29 @@ describe('makeup', function() {
     it('returns a path to the requested configuration file', function() {
       var expectedPath = path.resolve(__dirname, '../') + '/configs/configReader';
       makeup.path('configReader').should.equal(expectedPath);
+    });
+
+  });
+
+  describe('_getEnabledIntegrationNames()', function() {
+
+    beforeEach(function() {
+      sinon.stub(fs, 'readdirSync');
+    });
+
+    afterEach(function() {
+      fs.readdirSync.restore();
+    });
+
+    it('gets all integration module names in the module if no integration names are specified', function() {
+      fs.readdirSync.returns('all integrations');
+      makeup._getEnabledIntegrationNames().should.equal('all integrations');
+      fs.readdirSync.should.have.been.called();
+    });
+
+    it('splits the comma separate list of integrations if given as argument', function() {
+      makeup._getEnabledIntegrationNames('1,2,3').should.deep.equal(['1', '2', '3']);
+      fs.readdirSync.should.not.have.been.called();
     });
 
   });
@@ -85,20 +109,6 @@ describe('makeup', function() {
         makeup._runIntegration.restore();
       });
 
-      it('when integrations options does not exist', function(done) {
-        makeup.check({}, function(error) {
-          error.should.have.deep.property('message', 'no integrations enabled');
-          done();
-        });
-      });
-
-      it('when integrations options is falsy', function(done) {
-        makeup.check({ integrations: null }, function(error) {
-          error.should.have.deep.property('message', 'no integrations enabled');
-          done();
-        });
-      });
-
       it('when no valid integrations are specified', function(done) {
         makeup._getEnabledIntegrations.returns([]);
         makeup.check({ integrations: 'integrations' }, function(error) {
@@ -111,30 +121,33 @@ describe('makeup', function() {
 
     context('with enabled integrations', function() {
       var options;
-      var integrationStub;
       var testCallback;
 
       before(function() {
-        sinon.stub(makeup, '_getEnabledIntegrations').returns([1, 2]);
         options = { integrations: 'integrations' };
+        this.sandbox = sinon.sandbox.create();
+        this.sandbox.stub(makeup, '_getEnabledIntegrationNames').returns('integrationNames');
+        this.sandbox.stub(makeup, '_getEnabledIntegrations').returns([1, 2]);
         testCallback = sinon.stub();
 
         var testStream = new streams.WritableStream();
         testStream.write('TEST');
 
-        integrationStub = sinon.stub(makeup, '_runIntegration');
-        integrationStub.yields(null, testStream);
+        this.sandbox.stub(makeup, '_runIntegration').yields(null, testStream);
 
         makeup.check(options, testCallback);
       });
 
       after(function() {
-        makeup._getEnabledIntegrations.restore();
-        integrationStub.restore();
+        this.sandbox.restore();
+      });
+
+      it('retrieves the enabled integrations', function() {
+        makeup._getEnabledIntegrations.should.have.been.calledWith('integrationNames');
       });
 
       it('runs the given integrations', function() {
-        integrationStub.should.have.been.calledTwice();
+        makeup._runIntegration.should.have.been.calledTwice();
       });
 
       it('runs the provided callback', function() {

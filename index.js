@@ -1,5 +1,6 @@
 'use strict';
 
+var fs = require('fs');
 var path = require('path');
 var async = require('async');
 var streams = require('memory-streams');
@@ -7,13 +8,23 @@ var streams = require('memory-streams');
 var makeUp = module.exports = {};
 
 
+var INTEGRATIONS_DIR = path.join(__dirname, 'lib/integrations');
+
+
 makeUp.path = function(item) {
   return path.join(__dirname, 'configs', item);
 };
 
+makeUp._getEnabledIntegrationNames = function(integrationNames) {
+  if (integrationNames) {
+    return integrationNames.split(',');
+  }
+  return fs.readdirSync(INTEGRATIONS_DIR);
+};
+
 makeUp._getIntegrationModule = function(integrationName) {
   try {
-    return require(path.join(__dirname, 'lib/integrations', integrationName));
+    return require(path.join(INTEGRATIONS_DIR, integrationName));
   } catch (e) {
     return null;
   }
@@ -28,10 +39,7 @@ makeUp._getEnabledIntegrations = function(enabledIntegrationNames) {
 };
 
 makeUp.check = function(options, callback) {
-  if (!options.integrations) {
-    return callback({ message: 'no integrations enabled' });
-  }
-  var enabledIntegrationNames = options.integrations.split(',');
+  var enabledIntegrationNames = makeUp._getEnabledIntegrationNames(options.integrations);
   var enabledIntegrations = makeUp._getEnabledIntegrations(enabledIntegrationNames);
   if (!enabledIntegrations.length) {
     return callback({

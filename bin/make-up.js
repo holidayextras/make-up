@@ -4,14 +4,7 @@
 
 var MakeUp = require('../index');
 
-var argv = require('minimist')(
-  process.argv.slice(2),
-  {
-    default: {
-      i: 'eslint'
-    }
-  }
-);
+var argv = require('minimist')(process.argv.slice(2));
 
 var options = {
   dirs: argv._,
