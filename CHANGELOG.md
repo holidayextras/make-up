@@ -1,3 +1,6 @@
+* **9.2.0** - Allow choice of integrations to run via command line switch and options
+* **9.1.0** - Update .eslintrc to latest in [culture](https://github.com/holidayextras/culture) repo - `callback-return`
+* **9.0.0** - Update to ESlint 2.x series and latest compatible .eslintrc in [culture](https://github.com/holidayextras/culture) repo which includes ES6 rules
 * **8.2.0** - Update .eslintrc to latest in [culture](https://github.com/holidayextras/culture) repo - global sinon and sandbox vars
 * **8.1.0** - Update .eslintrc to latest in [culture](https://github.com/holidayextras/culture) repo - arrow function spacing
 * **8.0.0** - Allow filtering of files to lint by changes between git branches. Remove git since filter.
