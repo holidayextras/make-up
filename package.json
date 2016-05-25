@@ -33,15 +33,15 @@
     "sinon-chai": "^2.8.0"
   },
   "dependencies": {
-    "async": "1.5.2",
-    "eslint": "2.9.0",
+    "async": "1.5.0",
+    "eslint": "2.8.0",
     "eslint-plugin-mocha": "2.2.0",
-    "eslint-plugin-react": "5.1.1",
-    "glob-all": "3.0.3",
-    "lodash.intersection": "4.2.0",
+    "eslint-plugin-react": "4.3.0",
+    "glob-all": "3.0.1",
+    "lodash.intersection": "4.1.0",
     "memory-streams": "^0.1.0",
-    "minimist": "1.2.0",
-    "moment": "2.13.0",
+    "minimist": "1.1.1",
+    "moment": "2.10.6",
     "snyk-report": "~0.1.1"
   }
 }
