@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "lint": "bin/make-up.js lib test bin script",
+    "lint:yaml": "node_modules/.bin/js-yaml configs/scss-lint.yml 1>/dev/null",
     "test": "istanbul cover node_modules/.bin/_mocha -- --recursive -R spec",
-    "ci": "npm run lint && npm test",
+    "ci": "npm run lint:yaml && npm run lint && npm test",
     "postinstall": "rm -f ../../.eslintrc"
   },
   "author": "",
@@ -22,11 +23,8 @@
     "chai": "^3.5.0",
     "coveralls": "^2.11.9",
     "dirty-chai": "^1.2.2",
-    "grunt": "^1.0.1",
-    "grunt-cli": "^1.2.0",
-    "grunt-jsonlint": "^1.0.7",
-    "grunt-yaml-validator": "^0.9.0",
     "istanbul": "^0.4.3",
+    "js-yaml": "^3.6.1",
     "minimatch": "^3.0.0",
     "mocha": "^3.0.2",
     "sinon": "^1.17.4",
