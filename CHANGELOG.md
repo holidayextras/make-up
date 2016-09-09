@@ -1,3 +1,4 @@
+* **9.3.1** - Updated dependencies.
 * **9.3.0** - Updated linting ruleset used. Updated dev dependencies.
 * **9.2.0** - Allow choice of integrations to run via command line switch and options
 * **9.1.0** - Update .eslintrc to latest in [culture](https://github.com/holidayextras/culture) repo - `callback-return`
