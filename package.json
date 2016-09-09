@@ -39,7 +39,7 @@
     "lodash.intersection": "4.1.0",
     "memory-streams": "^0.1.0",
     "minimist": "1.1.1",
-    "moment": "2.10.6",
+    "moment": "2.14.0",
     "snyk-report": "~0.1.1"
   }
 }
