@@ -3,7 +3,7 @@
 var fs = require('fs');
 var path = require('path');
 var async = {
-    map: require('async/map')
+  map: require('async/map')
 };
 var streams = require('memory-streams');
 
