@@ -2,7 +2,9 @@
 
 var fs = require('fs');
 var path = require('path');
-var async = require('async');
+var async = {
+  map: require('async/map')
+};
 var streams = require('memory-streams');
 
 var makeUp = module.exports = {};
