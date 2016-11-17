@@ -31,7 +31,7 @@
     "sinon-chai": "^2.8.0"
   },
   "dependencies": {
-    "async": "2.1.2",
+    "async": "^2.1.2",
     "eslint": "2.8.0",
     "eslint-plugin-mocha": "2.2.0",
     "eslint-plugin-react": "4.3.0",
