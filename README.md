@@ -11,7 +11,7 @@ All of the configs for all of the linters and some third party tools.
 
     npm install make-up --save-dev
 
-Any existing eslint ruleset will be removed from the current directory upon installation.
+Any existing eslint ruleset will be removed from the current directory upon installation. You should ignore `.eslintrc` and `.eslintcache` from your version control system.
 
 ### Consume
 
