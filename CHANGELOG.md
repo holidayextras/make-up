@@ -1,3 +1,4 @@
+* **10.0.0** - Enabled eslint caching by default. Updated dependencies.
 * **9.3.1** - Updated dependencies.
 * **9.3.0** - Updated linting ruleset used. Updated dev dependencies.
 * **9.2.0** - Allow choice of integrations to run via command line switch and options
