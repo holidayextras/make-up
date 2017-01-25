@@ -39,6 +39,6 @@
     "lodash.intersection": "4.1.0",
     "memory-streams": "^0.1.0",
     "minimist": "1.1.1",
-    "snyk-report": "~0.1.1"
+    "snyk-report": "~0.1.4"
   }
 }
