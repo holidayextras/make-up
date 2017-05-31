@@ -20,7 +20,7 @@
     "make-up": "./bin/make-up.js"
   },
   "devDependencies": {
-    "chai": "^3.5.0",
+    "chai": "^4.0.1",
     "coveralls": "^2.11.9",
     "dirty-chai": "^1.2.2",
     "istanbul": "^0.4.3",
